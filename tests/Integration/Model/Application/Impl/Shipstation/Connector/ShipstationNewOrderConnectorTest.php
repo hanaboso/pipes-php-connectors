@@ -1,34 +1,36 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Integration\Model\Application\Impl\Mailchimp\Connector;
+namespace Tests\Integration\Model\Application\Impl\Shipstation\Connector;
 
 use Hanaboso\CommonsBundle\Exception\DateTimeException;
 use Hanaboso\CommonsBundle\Exception\PipesFrameworkException;
+use Hanaboso\CommonsBundle\Process\ProcessDto;
 use Hanaboso\CommonsBundle\Transport\Curl\CurlException;
-use Hanaboso\HbPFConnectors\Model\Application\Impl\Mailchimp\Connector\MailchimpCreateContactConnector;
-use Hanaboso\HbPFConnectors\Model\Application\Impl\Mailchimp\MailchimpApplication;
-use Hanaboso\PipesPhpSdk\Authorization\Base\ApplicationAbstract;
+use Hanaboso\HbPFConnectors\Model\Application\Impl\Shipstation\Connector\ShipstationNewOrderConnector;
 use Hanaboso\PipesPhpSdk\Authorization\Exception\ApplicationInstallException;
 use Tests\DatabaseTestCaseAbstract;
 use Tests\DataProvider;
 use Tests\MockCurlMethod;
 
 /**
- * Class MailchimpCreateContactConnectorTest
+ * Class ShipstationNewOrderConnectorTest
  *
  * @package Tests\Integration\Model\Application\Impl\Mailchimp\Connector
  */
-final class MailchimpCreateContactConnectorTest extends DatabaseTestCaseAbstract
+final class ShipstationNewOrderConnectorTest extends DatabaseTestCaseAbstract
 {
+
+    public const API_KEY    = '8919bb213aab47b48f7bb07f1ce1e25c';
+    public const API_SECRET = '996ab3153f154499a38221d22375424b';
 
     /**
      * @param int  $code
      * @param bool $isValid
      *
+     * @throws ApplicationInstallException
+     * @throws CurlException
      * @throws DateTimeException
      * @throws PipesFrameworkException
-     * @throws CurlException
-     * @throws ApplicationInstallException
      *
      * @dataProvider getDataProvider
      */
@@ -37,46 +39,37 @@ final class MailchimpCreateContactConnectorTest extends DatabaseTestCaseAbstract
         $this->mockCurl([
             new MockCurlMethod(
                 $code,
-                'responseDatacenter.json',
-                []
-            ),
-            new MockCurlMethod(
-                $code,
                 sprintf('response%s.json', $code),
                 []
             ),
         ]);
 
-        $app                             = self::$container->get('hbpf.application.mailchimp');
-        $mailchimpCreateContactConnector = new MailchimpCreateContactConnector(
+        $app                          = self::$container->get('hbpf.application.shipstation');
+        $shipstationNewOrderConnector = new ShipstationNewOrderConnector(
             self::$container->get('hbpf.transport.curl_manager'),
             $this->dm
         );
 
-        $mailchimpCreateContactConnector->setApplication($app);
+        $shipstationNewOrderConnector->setApplication($app);
 
-        $applicationInstall = DataProvider::getOauth2AppInstall(
+        $applicationInstall = DataProvider::getBasicAppInstall(
             $app->getKey(),
-            'user',
-            'fa830d8d4308625bac307906e83de659'
+            self::API_KEY,
+            self::API_SECRET
         );
-
-        $applicationInstall->setSettings([
-            ApplicationAbstract::FORM          => [
-                MailchimpApplication::AUDIENCE_ID => 'c9e7f10c5b',
-            ],
-            MailchimpApplication::API_KEYPOINT => $app->getApiEndpoint($applicationInstall),
-
-        ]);
 
         $this->pf($applicationInstall);
-
-        $dto      = DataProvider::getProcessDto(
+        $response = $shipstationNewOrderConnector->processEvent(DataProvider::getProcessDto(
             $app->getKey(),
-            'user',
-            (string) file_get_contents(__DIR__ . sprintf('/Data/response%s.json', $code), TRUE)
-        );
-        $response = $mailchimpCreateContactConnector->processAction($dto);
+            self::API_KEY,
+            (string) file_get_contents(sprintf('%s/Data/newOrder.json', __DIR__), TRUE)
+        ));
+
+        $responseNoUrl = $shipstationNewOrderConnector->processEvent(DataProvider::getProcessDto(
+            $app->getKey(),
+            self::API_KEY,
+            (string) file_get_contents(sprintf('%s/Data/newOrderNoUrl.json', __DIR__), TRUE)
+        ));
 
         if ($isValid) {
             self::assertSuccessProcessResponse(
@@ -89,6 +82,9 @@ final class MailchimpCreateContactConnectorTest extends DatabaseTestCaseAbstract
                 sprintf('response%s.json', $code),
                 );
         }
+
+        self::assertEquals($responseNoUrl->getHeaders()['pf-result-code'], ProcessDto::STOP_AND_FAILED);
+
     }
 
     /**
@@ -97,7 +93,7 @@ final class MailchimpCreateContactConnectorTest extends DatabaseTestCaseAbstract
     public function getDataProvider(): array
     {
         return [
-            [400, FALSE],
+            [404, FALSE],
             [200, TRUE],
         ];
     }
