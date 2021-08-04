@@ -96,7 +96,7 @@ final class NutshellApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.nutshell');
+        $this->application = self::getContainer()->get('hbpf.application.nutshell');
     }
 
 }

@@ -127,7 +127,7 @@ final class BigcommerceApplicationTest extends DatabaseTestCaseAbstract
         parent::setUp();
 
         $this->mockRedirect(BigcommerceApplication::BIGCOMMERCE_URL, self::CLIENT_ID, 'store_v2_products');
-        $this->application = self::$container->get('hbpf.application.bigcommerce');
+        $this->application = self::getContainer()->get('hbpf.application.bigcommerce');
     }
 
 }

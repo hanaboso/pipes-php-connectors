@@ -297,7 +297,7 @@ final class RedshiftApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.redshift');
+        $this->application = self::getContainer()->get('hbpf.application.redshift');
     }
 
     /**

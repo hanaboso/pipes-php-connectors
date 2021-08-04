@@ -94,7 +94,7 @@ final class FakturoidApplicationTest extends DatabaseTestCaseAbstract
      */
     public function testGetRequestDtoWithData(): void
     {
-        $app                = self::$container->get('hbpf.application.fakturoid');
+        $app                = self::getContainer()->get('hbpf.application.fakturoid');
         $applicationInstall = new ApplicationInstall();
         $applicationInstall->setSettings(
             [
@@ -129,7 +129,7 @@ final class FakturoidApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->app = self::$container->get('hbpf.application.fakturoid');
+        $this->app = self::getContainer()->get('hbpf.application.fakturoid');
     }
 
 }

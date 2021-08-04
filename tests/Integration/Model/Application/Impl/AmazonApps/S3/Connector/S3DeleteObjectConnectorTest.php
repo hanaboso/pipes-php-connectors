@@ -111,11 +111,11 @@ final class S3DeleteObjectConnectorTest extends DatabaseTestCaseAbstract
             ->setData(Json::encode(['name' => 'Test', 'content' => 'Content']))
             ->setHeaders(['pf-application' => self::KEY, 'pf-user' => self::USER]);
 
-        self::$container
+        self::getContainer()
             ->get('hbpf.connector.s3-create-object')
             ->processAction($dto);
 
-        $this->connector = self::$container->get('hbpf.connector.s3-delete-object');
+        $this->connector = self::getContainer()->get('hbpf.connector.s3-delete-object');
     }
 
     /**

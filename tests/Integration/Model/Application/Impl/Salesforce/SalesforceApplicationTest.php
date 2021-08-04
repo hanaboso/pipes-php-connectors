@@ -170,7 +170,7 @@ final class SalesforceApplicationTest extends DatabaseTestCaseAbstract
     private function setApplication(): void
     {
         $this->mockRedirect('https://login.salesforce.com/services/oauth2/authorize', self::CLIENT_ID);
-        $this->application = self::$container->get('hbpf.application.salesforce');
+        $this->application = self::getContainer()->get('hbpf.application.salesforce');
     }
 
 }

@@ -159,7 +159,7 @@ final class QuickbooksApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.quickbooks');
+        $this->application = self::getContainer()->get('hbpf.application.quickbooks');
     }
 
 }

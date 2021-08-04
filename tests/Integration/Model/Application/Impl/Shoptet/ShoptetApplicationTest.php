@@ -45,11 +45,11 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     public function testConstructor(): void
     {
         /** @var OAuth2Provider $provider */
-        $provider = self::$container->get('hbpf.providers.oauth2_provider');
+        $provider = self::getContainer()->get('hbpf.providers.oauth2_provider');
         /** @var DocumentManager $dm */
-        $dm = self::$container->get('doctrine_mongodb.odm.default_document_manager');
+        $dm = self::getContainer()->get('doctrine_mongodb.odm.default_document_manager');
         /** @var CurlManager $sender */
-        $sender = self::$container->get('hbpf.transport.curl_manager');
+        $sender = self::getContainer()->get('hbpf.transport.curl_manager');
         new ShoptetApplication($provider, $dm, $sender, 'localhost');
 
         self::assertFake();
@@ -132,7 +132,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     {
         $this->mockSender('{ "access_token": "___access token___", "expires_in": 3600}');
 
-        $this->application = self::$container->get('hbpf.application.shoptet');
+        $this->application = self::getContainer()->get('hbpf.application.shoptet');
         $dto               = $this->application->getRequestDto(
             (new ApplicationInstall())
                 ->setSettings(
@@ -425,7 +425,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     private function setApplication(): void
     {
         $this->mockRedirect('https://12345.myshoptet.com/action/ApiOAuthServer/token', self::CLIENT_ID);
-        $this->application = self::$container->get('hbpf.application.shoptet');
+        $this->application = self::getContainer()->get('hbpf.application.shoptet');
     }
 
     /**
@@ -446,7 +446,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
         );
 
         $this->setProperty(
-            self::$container->get('hbpf.application.shoptet'),
+            self::getContainer()->get('hbpf.application.shoptet'),
             'sender',
             $this->prepareSender($callback),
         );

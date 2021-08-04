@@ -93,7 +93,7 @@ final class ShoptetGetApiAccessTokenConnectorTest extends DatabaseTestCaseAbstra
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.shoptet-get-api-access-token');
+        $this->connector = self::getContainer()->get('hbpf.connector.shoptet-get-api-access-token');
     }
 
     /**

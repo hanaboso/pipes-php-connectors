@@ -10,6 +10,7 @@ use Hanaboso\CommonsBundle\Transport\Curl\Dto\ResponseDto;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Nutshell\Connector\NutshellCreateContactConnector;
 use Hanaboso\PipesPhpSdk\Application\Exception\ApplicationInstallException;
 use Hanaboso\Utils\Exception\PipesFrameworkException;
+use Hanaboso\Utils\File\File;
 use Hanaboso\Utils\System\PipesHeaders;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -49,7 +50,7 @@ final class NutshellCreateContactConnectorTest extends DatabaseTestCaseAbstract
      */
     public function testProcessAction(): void
     {
-        $data = (string) file_get_contents(__DIR__ . '/Data/newContact.json');
+        $data = File::getContent(__DIR__ . '/Data/newContact.json');
         $this->mockSender($data);
         $applicationInstall = DataProvider::getBasicAppInstall('nutshell');
         $this->pfd($applicationInstall);
@@ -72,7 +73,7 @@ final class NutshellCreateContactConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.nutshell-create-contact');
+        $this->connector = self::getContainer()->get('hbpf.connector.nutshell-create-contact');
     }
 
     /**

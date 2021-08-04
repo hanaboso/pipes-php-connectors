@@ -12,6 +12,7 @@ use Hanaboso\HbPFConnectors\Model\Application\Impl\Hubspot\HubSpotApplication;
 use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use Hanaboso\Utils\String\Json;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -105,7 +106,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
             Json::encode(['name' => 'John Doe', 'email' => 'noreply@johndoe.com', 'phone' => '555-555']),
         );
 
-        $ex  = (string) file_get_contents(__DIR__ . '/data/hubspot409Response.json');
+        $ex  = File::getContent(__DIR__ . '/data/hubspot409Response.json');
         $res = $this->createConnector(
             DataProvider::createResponseDto($ex, 409),
         )
@@ -148,7 +149,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->app = new HubSpotApplication(self::$container->get('hbpf.providers.oauth2_provider'));
+        $this->app = new HubSpotApplication(self::getContainer()->get('hbpf.providers.oauth2_provider'));
     }
 
     /**

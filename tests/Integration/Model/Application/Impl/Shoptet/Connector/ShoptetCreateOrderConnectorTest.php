@@ -10,6 +10,7 @@ use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetCrea
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PhpCheckUtils\PhpUnit\Traits\PrivateTrait;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use Hanaboso\Utils\String\Json;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -82,7 +83,7 @@ final class ShoptetCreateOrderConnectorTest extends DatabaseTestCaseAbstract
             self::SENDER,
             $this->prepareSender(
                 $this->prepareSenderResponse(
-                    (string) file_get_contents(__DIR__ . '/data/ShoptetImportResponse.json'),
+                    File::getContent(__DIR__ . '/data/ShoptetImportResponse.json'),
                     'POST https://api.myshoptet.com/api/orders',
                 ),
             ),
@@ -289,7 +290,7 @@ final class ShoptetCreateOrderConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.shoptet-create-order');
+        $this->connector = self::getContainer()->get('hbpf.connector.shoptet-create-order');
     }
 
 }

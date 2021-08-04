@@ -39,7 +39,7 @@ final class FlexiBeeApplicationTest extends ControllerTestCaseAbstract
      */
     private function getApp(): FlexiBeeApplication
     {
-        return self::$container->get('hbpf.application.flexibee');
+        return self::getContainer()->get('hbpf.application.flexibee');
     }
 
     /**

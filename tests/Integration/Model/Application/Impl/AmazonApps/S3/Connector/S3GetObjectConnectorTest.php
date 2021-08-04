@@ -11,6 +11,7 @@ use Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\S3\S3Application;
 use Hanaboso\PhpCheckUtils\PhpUnit\Traits\PrivateTrait;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use Hanaboso\Utils\String\Json;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use Throwable;
@@ -57,7 +58,7 @@ final class S3GetObjectConnectorTest extends DatabaseTestCaseAbstract
                 static function (string $method, array $parameters): void {
                     $method;
 
-                    file_put_contents($parameters[0]['SaveAs'], 'Content');
+                    File::putContent($parameters[0]['SaveAs'], 'Content');
                 },
             );
 
@@ -124,11 +125,11 @@ final class S3GetObjectConnectorTest extends DatabaseTestCaseAbstract
             ->setData(Json::encode(['name' => 'Test', 'content' => 'Content']))
             ->setHeaders(self::HEADERS);
 
-        self::$container
+        self::getContainer()
             ->get('hbpf.connector.s3-create-object')
             ->processAction($dto);
 
-        $this->connector = self::$container->get('hbpf.connector.s3-get-object');
+        $this->connector = self::getContainer()->get('hbpf.connector.s3-get-object');
     }
 
     /**

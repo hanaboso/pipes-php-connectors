@@ -35,8 +35,8 @@ final class RefreshOAuth2TokenCustomNodeTest extends DatabaseTestCaseAbstract
             ],
         );
 
-        self::$container->set('hbpf.providers.oauth2_provider', $providerMock);
-        $connector          = self::$container->get('hbpf.custom_node.refresh_oauth2_token');
+        self::getContainer()->set('hbpf.providers.oauth2_provider', $providerMock);
+        $connector          = self::getContainer()->get('hbpf.custom_node.refresh_oauth2_token');
         $applicationInstall = DataProvider::getOauth2AppInstall(
             'mailchimp',
             'user',
@@ -77,7 +77,7 @@ final class RefreshOAuth2TokenCustomNodeTest extends DatabaseTestCaseAbstract
      */
     public function testGetId(): void
     {
-        $application = self::$container->get('hbpf.custom_node.refresh_oauth2_token');
+        $application = self::getContainer()->get('hbpf.custom_node.refresh_oauth2_token');
 
         self::assertEquals('refresh_oauth2_token', $application->getId());
     }

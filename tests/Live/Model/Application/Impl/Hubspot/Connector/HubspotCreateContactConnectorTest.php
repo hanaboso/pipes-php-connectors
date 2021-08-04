@@ -4,6 +4,7 @@ namespace HbPFConnectorsTests\Live\Model\Application\Impl\Hubspot\Connector;
 
 use Exception;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Hubspot\Connector\HubSpotCreateContactConnector;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 
@@ -16,13 +17,14 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
 {
 
     /**
+     * @group live
      * @throws Exception
      */
     public function testProcessAction(): void
     {
-        $app                           = self::$container->get('hbpf.application.hub-spot');
+        $app                           = self::getContainer()->get('hbpf.application.hub-spot');
         $hubspotCreateContactConnector = new HubSpotCreateContactConnector(
-            self::$container->get('hbpf.transport.curl_manager'),
+            self::getContainer()->get('hbpf.transport.curl_manager'),
             $this->dm,
         );
 
@@ -41,7 +43,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
             DataProvider::getProcessDto(
                 $app->getKey(),
                 'user',
-                (string) file_get_contents(__DIR__ . '/Data/contactBody.json', TRUE),
+                File::getContent(__DIR__ . '/Data/contactBody.json'),
             ),
         );
         self::assertEmpty([]);

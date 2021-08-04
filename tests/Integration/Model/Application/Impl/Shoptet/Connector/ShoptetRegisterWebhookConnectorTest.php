@@ -148,7 +148,7 @@ final class ShoptetRegisterWebhookConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.shoptet-register-webhook');
+        $this->connector = self::getContainer()->get('hbpf.connector.shoptet-register-webhook');
     }
 
 }

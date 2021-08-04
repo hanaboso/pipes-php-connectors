@@ -118,7 +118,7 @@ final class GoogleDriveUploadFileConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->app = new GoogleDriveApplication(self::$container->get('hbpf.providers.oauth2_provider'));
+        $this->app = new GoogleDriveApplication(self::getContainer()->get('hbpf.providers.oauth2_provider'));
     }
 
     /**

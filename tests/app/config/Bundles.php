@@ -8,8 +8,6 @@ use Hanaboso\PipesPhpSdk\HbPFApplicationBundle\HbPFApplicationBundle;
 use Hanaboso\PipesPhpSdk\HbPFConnectorBundle\HbPFConnectorBundle;
 use Hanaboso\PipesPhpSdk\HbPFCustomNodeBundle\HbPFCustomNodeBundle;
 use Hanaboso\PipesPhpSdk\HbPFJoinerBundle\HbPFJoinerBundle;
-use Hanaboso\PipesPhpSdk\HbPFLongRunningNodeBundle\HbPFLongRunningNodeBundle;
-use Hanaboso\PipesPhpSdk\HbPFMapperBundle\HbPFMapperBundle;
 use Hanaboso\PipesPhpSdk\HbPFTableParserBundle\HbPFTableParserBundle;
 use RabbitMqBundle\RabbitMqBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
@@ -31,8 +29,6 @@ return [
     HbPFConnectorsBundle::class      => ['all' => TRUE],
     HbPFCustomNodeBundle::class      => ['all' => TRUE],
     HbPFJoinerBundle::class          => ['all' => TRUE],
-    HbPFLongRunningNodeBundle::class => ['all' => TRUE],
-    HbPFMapperBundle::class          => ['all' => TRUE],
     HbPFTableParserBundle::class     => ['all' => TRUE],
     RabbitMqBundle::class            => ['all' => TRUE],
 ];

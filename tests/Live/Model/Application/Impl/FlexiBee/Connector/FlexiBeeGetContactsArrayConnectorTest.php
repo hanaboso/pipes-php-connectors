@@ -26,7 +26,7 @@ final class FlexiBeeGetContactsArrayConnectorTest extends DatabaseTestCaseAbstra
     {
         $this->getAppInstall();
 
-        $conn = self::$container->get('hbpf.connector.flexibee.get-contacts-array');
+        $conn = self::getContainer()->get('hbpf.connector.flexibee.get-contacts-array');
         $conn->setApplication($this->mockApplication());
         $dto = DataProvider::getProcessDto($this->getApp()->getKey(), 'user');
         $conn->processAction($dto);
@@ -38,7 +38,7 @@ final class FlexiBeeGetContactsArrayConnectorTest extends DatabaseTestCaseAbstra
      */
     private function getApp(): FlexiBeeApplication
     {
-        return self::$container->get('hbpf.application.flexibee');
+        return self::getContainer()->get('hbpf.application.flexibee');
     }
 
     /**

@@ -221,7 +221,7 @@ final class ZendeskApplicationTest extends DatabaseTestCaseAbstract
     private function setApplication(): void
     {
         $this->mockRedirect('https://domain123.zendesk.com/oauth/authorizations/new', 'clientId', 'read write');
-        $this->application = self::$container->get('hbpf.application.zendesk');
+        $this->application = self::getContainer()->get('hbpf.application.zendesk');
     }
 
 }

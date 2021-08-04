@@ -134,7 +134,7 @@ final class ShipstationApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.shipstation');
+        $this->application = self::getContainer()->get('hbpf.application.shipstation');
     }
 
 }

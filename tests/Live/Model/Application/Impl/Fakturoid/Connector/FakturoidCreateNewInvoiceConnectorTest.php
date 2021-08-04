@@ -8,6 +8,7 @@ use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Application\Base\ApplicationInterface;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Authorization\Base\Basic\BasicApplicationInterface;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 
@@ -26,7 +27,7 @@ final class FakturoidCreateNewInvoiceConnectorTest extends DatabaseTestCaseAbstr
     public function testSend(): void
     {
         $user               = 'ha****@mailinator.com';
-        $app                = self::$container->get('hbpf.application.fakturoid');
+        $app                = self::getContainer()->get('hbpf.application.fakturoid');
         $applicationInstall = new ApplicationInstall();
         $applicationInstall->setSettings(
             [
@@ -42,8 +43,8 @@ final class FakturoidCreateNewInvoiceConnectorTest extends DatabaseTestCaseAbstr
         $applicationInstall->setKey($app->getKey());
         $applicationInstall->setUser($user);
         $this->pfd($applicationInstall);
-        $conn         = self::$container->get('hbpf.connector.fakturoid.create-new-invoice');
-        $dataFromFile = (string) file_get_contents(__DIR__ . '/NewInvoiceRequest.json');
+        $conn         = self::getContainer()->get('hbpf.connector.fakturoid.create-new-invoice');
+        $dataFromFile = File::getContent(__DIR__ . '/NewInvoiceRequest.json');
         $dto          = DataProvider::getProcessDto($app->getKey(), $user, $dataFromFile);
         $conn->processAction($dto);
         self::assertFake();

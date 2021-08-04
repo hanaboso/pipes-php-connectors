@@ -182,7 +182,7 @@ final class FlexiBeeCreateNewContactConnectorTest extends DatabaseTestCaseAbstra
      */
     private function getApp(): FlexiBeeApplication
     {
-        return self::$container->get('hbpf.application.flexibee');
+        return self::getContainer()->get('hbpf.application.flexibee');
     }
 
     /**

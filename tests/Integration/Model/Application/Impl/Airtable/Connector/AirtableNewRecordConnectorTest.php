@@ -11,6 +11,7 @@ use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Authorization\Base\Basic\BasicApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Authorization\Base\Basic\BasicApplicationInterface;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 use HbPFConnectorsTests\MockCurlMethod;
@@ -36,10 +37,10 @@ final class AirtableNewRecordConnectorTest extends DatabaseTestCaseAbstract
 
         $airtableNewRecordConnector = $this->setApplicationAndMock(self::API_KEY);
 
-        $newRecordFile = file_get_contents(sprintf('%s/Data/newRecord.json', __DIR__), TRUE);
+        $newRecordFile = File::getContent(sprintf('%s/Data/newRecord.json', __DIR__));
 
         $response = $airtableNewRecordConnector->processAction(
-            DataProvider::getProcessDto('airtable', 'user', (string) $newRecordFile),
+            DataProvider::getProcessDto('airtable', 'user', $newRecordFile),
         );
 
         self::assertSuccessProcessResponse($response, 'response200.json');
@@ -53,9 +54,9 @@ final class AirtableNewRecordConnectorTest extends DatabaseTestCaseAbstract
         $this->mockCurl([new MockCurlMethod(500, 'response500.json', [])]);
 
         $airtableNewRecordConnector = $this->setApplicationAndMock(self::API_KEY);
-        $newRecordFileNoFields      = file_get_contents(sprintf('%s/Data/newRecordNoFields.json', __DIR__), TRUE);
+        $newRecordFileNoFields      = File::getContent(sprintf('%s/Data/newRecordNoFields.json', __DIR__));
         $response                   = $airtableNewRecordConnector->processAction(
-            DataProvider::getProcessDto('airtable', 'user', (string) $newRecordFileNoFields),
+            DataProvider::getProcessDto('airtable', 'user', $newRecordFileNoFields),
         );
 
         self::assertFailedProcessResponse($response, 'response500.json');
@@ -70,10 +71,10 @@ final class AirtableNewRecordConnectorTest extends DatabaseTestCaseAbstract
     {
         $airtableNewRecordConnector = $this->setApplicationAndMock();
 
-        $newRecordFile = file_get_contents(sprintf('%s/Data/newRecord.json', __DIR__), TRUE);
+        $newRecordFile = File::getContent(sprintf('%s/Data/newRecord.json', __DIR__));
 
         $response = $airtableNewRecordConnector->processAction(
-            DataProvider::getProcessDto('airtable', 'user', (string) $newRecordFile),
+            DataProvider::getProcessDto('airtable', 'user', $newRecordFile),
         );
 
         self::assertFailedProcessResponse($response, 'newRecord.json');
@@ -120,9 +121,9 @@ final class AirtableNewRecordConnectorTest extends DatabaseTestCaseAbstract
      */
     private function setApplication(): AirtableNewRecordConnector
     {
-        $app                        = self::$container->get('hbpf.application.airtable');
+        $app                        = self::getContainer()->get('hbpf.application.airtable');
         $airtableNewRecordConnector = new AirtableNewRecordConnector(
-            self::$container->get('hbpf.transport.curl_manager'),
+            self::getContainer()->get('hbpf.transport.curl_manager'),
             $this->dm,
         );
 

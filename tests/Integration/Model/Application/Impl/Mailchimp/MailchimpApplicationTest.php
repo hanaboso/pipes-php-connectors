@@ -279,7 +279,7 @@ final class MailchimpApplicationTest extends DatabaseTestCaseAbstract
     private function setApplication(): void
     {
         $this->mockRedirect(MailchimpApplication::MAILCHIMP_URL, self::CLIENT_ID);
-        $this->application = self::$container->get('hbpf.application.mailchimp');
+        $this->application = self::getContainer()->get('hbpf.application.mailchimp');
     }
 
 }

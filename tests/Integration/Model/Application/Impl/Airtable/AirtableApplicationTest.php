@@ -124,7 +124,7 @@ final class AirtableApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->app = self::$container->get('hbpf.application.airtable');
+        $this->app = self::getContainer()->get('hbpf.application.airtable');
     }
 
 }

@@ -8,6 +8,7 @@ use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Application\Base\ApplicationInterface;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Authorization\Base\Basic\BasicApplicationInterface;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\ControllerTestCaseAbstract;
 
 /**
@@ -24,7 +25,7 @@ final class FakturoidGetAccountDetailConnectorTest extends ControllerTestCaseAbs
      */
     public function testAuthorize(): void
     {
-        $app = self::$container->get('hbpf.application.fakturoid');
+        $app = self::getContainer()->get('hbpf.application.fakturoid');
 
         $applicationInstall = new ApplicationInstall();
         $applicationInstall->setSettings(
@@ -43,10 +44,10 @@ final class FakturoidGetAccountDetailConnectorTest extends ControllerTestCaseAbs
             'GET',
             'https://app.fakturoid.cz/api/v2/accounts/fakturacnitest/account.json',
         );
-        $curl = self::$container->get('hbpf.transport.curl_manager');
+        $curl = self::getContainer()->get('hbpf.transport.curl_manager');
         $res  = $curl->send($dto);
         self::assertEquals(200, $res->getStatusCode());
-        $dataFromFile = (string) file_get_contents(__DIR__ . '/AccountDetailResponse.json');
+        $dataFromFile = File::getContent(__DIR__ . '/AccountDetailResponse.json');
         self::assertEquals($dataFromFile, $res->getBody());
     }
 

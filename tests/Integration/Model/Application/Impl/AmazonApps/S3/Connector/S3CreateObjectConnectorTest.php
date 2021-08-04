@@ -127,7 +127,7 @@ final class S3CreateObjectConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.s3-create-object');
+        $this->connector = self::getContainer()->get('hbpf.connector.s3-create-object');
     }
 
     /**

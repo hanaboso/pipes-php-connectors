@@ -10,6 +10,7 @@ use Hanaboso\CommonsBundle\Transport\Curl\Dto\ResponseDto;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\Connector\IDokladNewInvoiceRecievedConnector;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\IDokladApplication;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 
@@ -61,7 +62,7 @@ final class IDokladNewInvoiceRecievedConnectorTest extends DatabaseTestCaseAbstr
         $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
         $this->dm->clear();
 
-        $dataFromFile = (string) file_get_contents(__DIR__ . '/newInvoice.json');
+        $dataFromFile = File::getContent(__DIR__ . '/newInvoice.json');
 
         $dto = DataProvider::getProcessDto(
             $this->app->getKey(),
@@ -86,7 +87,7 @@ final class IDokladNewInvoiceRecievedConnectorTest extends DatabaseTestCaseAbstr
         $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
         $this->dm->clear();
 
-        $dataFromFile = (string) file_get_contents(__DIR__ . '/newInvoice.json');
+        $dataFromFile = File::getContent(__DIR__ . '/newInvoice.json');
 
         $dto = DataProvider::getProcessDto(
             $this->app->getKey(),
@@ -141,7 +142,7 @@ final class IDokladNewInvoiceRecievedConnectorTest extends DatabaseTestCaseAbstr
     {
         parent::setUp();
 
-        $this->app = new IDokladApplication(self::$container->get('hbpf.providers.oauth2_provider'));
+        $this->app = new IDokladApplication(self::getContainer()->get('hbpf.providers.oauth2_provider'));
     }
 
     /**

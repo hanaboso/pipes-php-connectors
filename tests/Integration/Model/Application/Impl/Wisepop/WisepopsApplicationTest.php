@@ -181,7 +181,7 @@ final class WisepopsApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.wisepops');
+        $this->application = self::getContainer()->get('hbpf.application.wisepops');
     }
 
     /**

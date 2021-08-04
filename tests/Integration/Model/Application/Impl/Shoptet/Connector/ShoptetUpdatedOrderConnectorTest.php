@@ -242,7 +242,7 @@ final class ShoptetUpdatedOrderConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.shoptet-updated-order-connector');
+        $this->connector = self::getContainer()->get('hbpf.connector.shoptet-updated-order-connector');
     }
 
 }

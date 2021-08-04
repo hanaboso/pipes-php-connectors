@@ -139,7 +139,7 @@ final class S3ApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.s3');
+        $this->application = self::getContainer()->get('hbpf.application.s3');
     }
 
 }

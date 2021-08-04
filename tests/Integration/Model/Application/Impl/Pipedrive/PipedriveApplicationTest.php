@@ -154,7 +154,7 @@ final class PipedriveApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.pipedrive');
+        $this->application = self::getContainer()->get('hbpf.application.pipedrive');
     }
 
 }
