@@ -95,7 +95,7 @@ final class FakturoidApplication extends BasicApplicationAbstract
      */
     public function isAuthorized(ApplicationInstall $applicationInstall): bool
     {
-        $settings = $applicationInstall->getSettings()[ApplicationInterface::AUTHORIZATION_SETTINGS];
+        $settings = $applicationInstall->getSettings()[ApplicationInterface::AUTHORIZATION_SETTINGS] ?? [];
 
         return isset($applicationInstall->getSettings()[ApplicationAbstract::FORM][self::ACCOUNT])
             && isset($settings[BasicApplicationInterface::USER])
