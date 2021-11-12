@@ -32,15 +32,15 @@ final class FlexiBeeApplicationTest extends DatabaseTestCaseAbstract
     public function testGetKey(): void
     {
 
-        self::assertEquals('flexibee', $this->getApp()->getKey());
+        self::assertEquals('flexibee', $this->getApp()->getName());
     }
 
     /**
      * @throws Exception
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
-        self::assertEquals('FlexiBee Application', $this->getApp()->getName());
+        self::assertEquals('FlexiBee Application', $this->getApp()->getPublicName());
     }
 
     /**
@@ -363,7 +363,7 @@ final class FlexiBeeApplicationTest extends DatabaseTestCaseAbstract
         bool $fillToken = FALSE,
     ): ApplicationInstall
     {
-        $appInstall = DataProvider::getBasicAppInstall($this->getApp()->getKey());
+        $appInstall = DataProvider::getBasicAppInstall($this->getApp()->getName());
 
         if ($httpAuth) {
             $auth = 'http';

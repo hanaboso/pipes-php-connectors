@@ -10,7 +10,6 @@ use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Authorization\Base\Basic\BasicApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Authorization\Base\Basic\BasicApplicationInterface;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -80,17 +79,6 @@ final class AirtableNewRecordConnectorTest extends DatabaseTestCaseAbstract
         self::assertFailedProcessResponse($response, 'newRecord.json');
 
         self::assertEquals(ProcessDto::STOP_AND_FAILED, $response->getHeaders()['pf-result-code']);
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        $airtableNewRecordConnector = $this->setApplication();
-
-        self::expectException(ConnectorException::class);
-        $airtableNewRecordConnector->processEvent(DataProvider::getProcessDto('airtable', 'user', ''));
     }
 
     /**

@@ -13,7 +13,6 @@ use Hanaboso\PipesPhpSdk\Application\Exception\ApplicationInstallException;
 use Hanaboso\PipesPhpSdk\Application\Repository\ApplicationInstallRepository;
 use Hanaboso\PipesPhpSdk\Connector\ConnectorAbstract;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessActionNotSupportedTrait;
 use Hanaboso\Utils\Exception\PipesFrameworkException;
 use JsonException;
 
@@ -24,8 +23,6 @@ use JsonException;
  */
 final class ShipstationNewOrderConnector extends ConnectorAbstract
 {
-
-    use ProcessActionNotSupportedTrait;
 
     /**
      * @var ApplicationInstallRepository&ObjectRepository<ApplicationInstall>
@@ -61,7 +58,7 @@ final class ShipstationNewOrderConnector extends ConnectorAbstract
      * @throws ConnectorException
      * @throws JsonException
      */
-    public function processEvent(ProcessDto $dto): ProcessDto
+    public function processAction(ProcessDto $dto): ProcessDto
     {
         $applicationInstall = $this->repository->findUserAppByHeaders($dto);
 

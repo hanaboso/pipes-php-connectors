@@ -7,7 +7,6 @@ use Hanaboso\CommonsBundle\Transport\Curl\CurlException;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Application\Exception\ApplicationInstallException;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessEventNotSupportedTrait;
 use JsonException;
 
 /**
@@ -17,8 +16,6 @@ use JsonException;
  */
 final class ShoptetGetApiAccessTokenConnector extends ShoptetConnectorAbstract
 {
-
-    use ProcessEventNotSupportedTrait;
 
     /**
      * @return string

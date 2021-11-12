@@ -6,7 +6,6 @@ use Exception;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Mailchimp\Connector\MailchimpTagContactConnector;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Mailchimp\MailchimpApplication;
 use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -54,7 +53,7 @@ final class MailchimpTagContactConnectorTest extends DatabaseTestCaseAbstract
         $mailchimpCreateContactConnector->setApplication($app);
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             'fa830d8d4308625ba**********de659',
         );
@@ -72,7 +71,7 @@ final class MailchimpTagContactConnectorTest extends DatabaseTestCaseAbstract
         $this->pfd($applicationInstall);
 
         $dto      = DataProvider::getProcessDto(
-            $app->getKey(),
+            $app->getName(),
             'user',
             File::getContent(__DIR__ . sprintf('/Data/response%s.json', $code)),
         );
@@ -89,36 +88,6 @@ final class MailchimpTagContactConnectorTest extends DatabaseTestCaseAbstract
                 sprintf('response%s.json', $code),
             );
         }
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        $app                             = self::getContainer()->get('hbpf.application.mailchimp');
-        $mailchimpCreateContactConnector = new MailchimpTagContactConnector(
-            self::getContainer()->get('hbpf.transport.curl_manager'),
-            $this->dm,
-        );
-
-        $mailchimpCreateContactConnector->setApplication($app);
-
-        $applicationInstall = DataProvider::getBasicAppInstall(
-            $app->getKey(),
-            'user',
-            'password',
-        );
-
-        $this->pfd($applicationInstall);
-        self::expectException(ConnectorException::class);
-        $mailchimpCreateContactConnector->processEvent(
-            DataProvider::getProcessDto(
-                $app->getKey(),
-                'user',
-                '',
-            ),
-        );
     }
 
     /**

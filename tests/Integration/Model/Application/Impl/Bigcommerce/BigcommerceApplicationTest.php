@@ -31,7 +31,7 @@ final class BigcommerceApplicationTest extends DatabaseTestCaseAbstract
     public function testAutorize(): void
     {
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'token',
             self::CLIENT_ID,
@@ -64,7 +64,7 @@ final class BigcommerceApplicationTest extends DatabaseTestCaseAbstract
     public function testRequestDto(): void
     {
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'token',
             self::CLIENT_ID,
@@ -89,11 +89,11 @@ final class BigcommerceApplicationTest extends DatabaseTestCaseAbstract
     /**
      *
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
         self::assertEquals(
             'Bigcommerce',
-            $this->application->getName(),
+            $this->application->getPublicName(),
         );
     }
 

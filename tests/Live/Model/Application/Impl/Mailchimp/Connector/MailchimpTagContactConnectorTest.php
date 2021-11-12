@@ -30,7 +30,7 @@ final class MailchimpTagContactConnectorTest extends DatabaseTestCaseAbstract
         $mailchimpTagContactConnector->setApplication($app);
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
         );
 
         $applicationInstall->setSettings(
@@ -47,7 +47,7 @@ final class MailchimpTagContactConnectorTest extends DatabaseTestCaseAbstract
         //        $data = (string) file_get_contents(sprintf('%s/Data/automation.json', __DIR__), TRUE);
         //        $mailchimpTagContactConnector->processAction(
         //                    DataProvider::getProcessDto(
-        //                        $app->getKey(),
+        //                        $app->getName(),
         //                        'user',
         //                        $data
         //                    )

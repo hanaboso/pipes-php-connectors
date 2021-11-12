@@ -43,7 +43,7 @@ final class FakturoidCreateNewSubjectConnectorTest extends FakturoidAbstractConn
         $app          = self::getContainer()->get('hbpf.application.fakturoid');
         $dataFromFile = File::getContent(__DIR__ . '/Data/requestCreateNewSubject.json');
         $dto          = DataProvider::getProcessDto(
-            $app->getKey(),
+            $app->getName(),
             'user',
             $dataFromFile,
         );

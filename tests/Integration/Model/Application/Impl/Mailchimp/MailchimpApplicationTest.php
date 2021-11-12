@@ -40,7 +40,7 @@ final class MailchimpApplicationTest extends DatabaseTestCaseAbstract
     {
         $this->setApplication();
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'token123',
             self::CLIENT_ID,
@@ -77,7 +77,7 @@ final class MailchimpApplicationTest extends DatabaseTestCaseAbstract
         );
         $this->setApplication();
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'fa830d8d4308*****c307906e83de659',
         );
@@ -126,12 +126,12 @@ final class MailchimpApplicationTest extends DatabaseTestCaseAbstract
     /**
      * @throws Exception
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
         $this->setApplication();
         self::assertEquals(
             'Mailchimp',
-            $this->application->getName(),
+            $this->application->getPublicName(),
         );
     }
 
@@ -241,7 +241,7 @@ final class MailchimpApplicationTest extends DatabaseTestCaseAbstract
         );
         $this->setApplication();
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'fa830d8d4308*****c307906e83de659',
             self::CLIENT_ID,

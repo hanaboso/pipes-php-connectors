@@ -32,7 +32,7 @@ final class ZendeskApplication extends OAuth2ApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'zendesk';
     }
@@ -40,7 +40,7 @@ final class ZendeskApplication extends OAuth2ApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Zendesk';
     }

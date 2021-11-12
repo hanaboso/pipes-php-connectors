@@ -25,7 +25,7 @@ final class MailchimpApplicationTest extends DatabaseTestCaseAbstract
         $app = self::getContainer()->get('hbpf.application.mailchimp');
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             'token123',
             '6748****7235',

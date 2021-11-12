@@ -21,7 +21,7 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
     {
         $app                = self::getContainer()->get('hbpf.application.hub-spot');
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             'token123',
             '3cc4771e-deb7-4905-8e6b-d2**********',

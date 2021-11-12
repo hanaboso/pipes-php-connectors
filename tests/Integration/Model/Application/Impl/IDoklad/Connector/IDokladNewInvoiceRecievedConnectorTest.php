@@ -42,30 +42,18 @@ final class IDokladNewInvoiceRecievedConnectorTest extends DatabaseTestCaseAbstr
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\Connector\IDokladNewInvoiceRecievedConnector::processEvent
-     *
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        self::expectExceptionCode(ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT);
-        $this->createConnector(DataProvider::createResponseDto())->processEvent(DataProvider::getProcessDto());
-    }
-
-    /**
      * @throws ConnectorException
      * @throws Exception
      */
     public function testProcessAction(): void
     {
-        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getName()));
         $this->dm->clear();
 
         $dataFromFile = File::getContent(__DIR__ . '/newInvoice.json');
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             $dataFromFile,
         );
@@ -84,13 +72,13 @@ final class IDokladNewInvoiceRecievedConnectorTest extends DatabaseTestCaseAbstr
      */
     public function testProcessActionRequestException(): void
     {
-        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getName()));
         $this->dm->clear();
 
         $dataFromFile = File::getContent(__DIR__ . '/newInvoice.json');
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             $dataFromFile,
         );
@@ -108,11 +96,11 @@ final class IDokladNewInvoiceRecievedConnectorTest extends DatabaseTestCaseAbstr
      */
     public function testProcessActionRequestLogicException(): void
     {
-        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getName()));
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             '{
             "BankId": 1

@@ -28,13 +28,17 @@ final class NutshellApplicationTest extends DatabaseTestCaseAbstract
     /**
      * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Nutshell\NutshellApplication::getRequestDto
      * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Nutshell\NutshellApplication::getToken
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Nutshell\NutshellApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Nutshell\NutshellApplication::getName
      *
      * @throws Exception
      */
     public function testAuthorization(): void
     {
-        $applicationInstall = DataProvider::getBasicAppInstall($this->application->getKey(), self::USER, self::API_KEY);
+        $applicationInstall = DataProvider::getBasicAppInstall(
+            $this->application->getName(),
+            self::USER,
+            self::API_KEY,
+        );
         $this->pfd($applicationInstall);
 
         $dto = $this->application->getRequestDto(
@@ -61,11 +65,11 @@ final class NutshellApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Nutshell\NutshellApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Nutshell\NutshellApplication::getPublicName
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
-        self::assertEquals('Nutshell', $this->application->getName());
+        self::assertEquals('Nutshell', $this->application->getPublicName());
     }
 
     /**

@@ -73,7 +73,7 @@ final class FlexiBeeApplication extends BasicApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return self::KEY;
     }
@@ -81,7 +81,7 @@ final class FlexiBeeApplication extends BasicApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'FlexiBee Application';
     }

@@ -23,7 +23,7 @@ final class NutshellApplication extends BasicApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'nutshell';
     }
@@ -31,7 +31,7 @@ final class NutshellApplication extends BasicApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Nutshell';
     }

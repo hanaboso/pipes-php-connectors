@@ -43,7 +43,7 @@ final class FakturoidCreateNewInvoiceConnectorTest extends FakturoidAbstractConn
         $app          = self::getContainer()->get('hbpf.application.fakturoid');
         $dataFromFile = File::getContent(__DIR__ . '/Data/requestCreateNewInvoice.json');
         $dto          = DataProvider::getProcessDto(
-            $app->getKey(),
+            $app->getName(),
             'user',
             $dataFromFile,
         );

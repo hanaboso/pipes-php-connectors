@@ -30,7 +30,7 @@ final class MailchimpCreateContactConnectorTest extends DatabaseTestCaseAbstract
         $mailchimpCreateContactConnector->setApplication($app);
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
         );
 
         $applicationInstall->setSettings(
@@ -46,7 +46,7 @@ final class MailchimpCreateContactConnectorTest extends DatabaseTestCaseAbstract
         //        $data = (string) file_get_contents(sprintf('%s/Data/requestMailchimp.json', __DIR__), TRUE);
         //        $mailchimpCreateContactConnector->processAction(
         //            DataProvider::getProcessDto(
-        //                $app->getKey(),
+        //                $app->getName(),
         //                'user',
         //                $data
         //            )

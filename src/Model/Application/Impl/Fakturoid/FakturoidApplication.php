@@ -28,7 +28,7 @@ final class FakturoidApplication extends BasicApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'fakturoid';
     }
@@ -36,7 +36,7 @@ final class FakturoidApplication extends BasicApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Fakturoid aplication';
     }

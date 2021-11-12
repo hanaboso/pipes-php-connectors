@@ -26,23 +26,23 @@ final class IDokladApplicationTest extends DatabaseTestCaseAbstract
     private IDokladApplication $app;
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\IDokladApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\IDokladApplication::getName
      *
      * @throws Exception
      */
     public function testGetKey(): void
     {
-        self::assertEquals('i-doklad', $this->app->getKey());
+        self::assertEquals('i-doklad', $this->app->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\IDokladApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\IDokladApplication::getPublicName
      *
      * @throws Exception
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
-        self::assertEquals('iDoklad Application', $this->app->getName());
+        self::assertEquals('iDoklad Application', $this->app->getPublicName());
     }
 
     /**
@@ -94,7 +94,7 @@ final class IDokladApplicationTest extends DatabaseTestCaseAbstract
     public function testGetRequestDto(): void
     {
         $dto = $this->app->getRequestDto(
-            DataProvider::getOauth2AppInstall($this->app->getKey()),
+            DataProvider::getOauth2AppInstall($this->app->getName()),
             CurlManager::METHOD_POST,
             NULL,
             Json::encode(['foo' => 'bar']),
@@ -109,7 +109,7 @@ final class IDokladApplicationTest extends DatabaseTestCaseAbstract
      */
     public function testAuthorize(): void
     {
-        $this->app->authorize(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->app->authorize(DataProvider::getOauth2AppInstall($this->app->getName()));
 
         self::assertFake();
     }

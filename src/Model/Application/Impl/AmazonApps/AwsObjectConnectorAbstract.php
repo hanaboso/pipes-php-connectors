@@ -10,7 +10,6 @@ use Hanaboso\PipesPhpSdk\Application\Exception\ApplicationInstallException;
 use Hanaboso\PipesPhpSdk\Application\Repository\ApplicationInstallRepository;
 use Hanaboso\PipesPhpSdk\Connector\ConnectorAbstract;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessEventNotSupportedTrait;
 use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessExceptionTrait;
 
 /**
@@ -22,7 +21,6 @@ abstract class AwsObjectConnectorAbstract extends ConnectorAbstract
 {
 
     use ProcessExceptionTrait;
-    use ProcessEventNotSupportedTrait;
 
     protected const QUERY  = 'query';
     protected const RESULT = 'result';

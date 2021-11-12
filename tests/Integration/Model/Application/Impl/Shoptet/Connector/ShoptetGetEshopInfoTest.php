@@ -11,7 +11,6 @@ use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetGetE
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PhpCheckUtils\PhpUnit\Traits\PrivateTrait;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use Hanaboso\Utils\Date\DateTimeUtils;
 use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
@@ -43,17 +42,6 @@ final class ShoptetGetEshopInfoTest extends DatabaseTestCaseAbstract
     public function testGetId(): void
     {
         self::assertEquals('shoptet-get-eshop-info', $this->connector->getId());
-    }
-
-    /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetGetEshopInfo::processEvent()
-     *
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        $this->connector->processEvent(new ProcessDto());
     }
 
     /**

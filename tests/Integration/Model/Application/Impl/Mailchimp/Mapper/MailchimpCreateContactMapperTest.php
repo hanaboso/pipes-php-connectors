@@ -38,7 +38,7 @@ final class MailchimpCreateContactMapperTest extends DatabaseTestCaseAbstract
         $app = self::getContainer()->get('hbpf.application.mailchimp');
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             'fa830d8d43*****bac307906e83de659',
         );
@@ -53,14 +53,14 @@ final class MailchimpCreateContactMapperTest extends DatabaseTestCaseAbstract
         $this->pfd($applicationInstall);
 
         $dto = DataProvider::getProcessDto(
-            $app->getKey(),
+            $app->getName(),
             'user',
             File::getContent(__DIR__ . '/Data/responseHubspot.json'),
         );
 
         $mailchimpCreateContactMapper = new MailchimpCreateContactMapper();
-        $dto                          = $mailchimpCreateContactMapper->process($dto);
-        $dtoNoBody                    = $mailchimpCreateContactMapper->process($dto);
+        $dto                          = $mailchimpCreateContactMapper->processAction($dto);
+        $dtoNoBody                    = $mailchimpCreateContactMapper->processAction($dto);
 
         self::assertEquals(
             Json::decode($dto->getData()),

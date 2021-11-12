@@ -24,7 +24,7 @@ final class IDokladCreateNewContactConnectorTest extends DatabaseTestCaseAbstrac
         $app = self::getContainer()->get('hbpf.application.i-doklad');
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             'token',
             'ae89f69a-44f4-4163-ac98-************',
@@ -33,7 +33,7 @@ final class IDokladCreateNewContactConnectorTest extends DatabaseTestCaseAbstrac
         $this->pfd($applicationInstall);
         $conn         = self::getContainer()->get('hbpf.connector.i-doklad.create-new-contact');
         $dataFromFile = File::getContent(__DIR__ . '/newContact.json');
-        $dto          = DataProvider::getProcessDto($app->getKey(), 'user', $dataFromFile);
+        $dto          = DataProvider::getProcessDto($app->getName(), 'user', $dataFromFile);
         $conn->processAction($dto);
         self::assertFake();
     }

@@ -38,19 +38,19 @@ final class QuickbooksApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Quickbooks\QuickbooksApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Quickbooks\QuickbooksApplication::getName
      */
     public function testGetKey(): void
     {
-        self::assertEquals('quickbooks', $this->application->getKey());
+        self::assertEquals('quickbooks', $this->application->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Quickbooks\QuickbooksApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Quickbooks\QuickbooksApplication::getPublicName
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
-        self::assertEquals('Quickbooks', $this->application->getName());
+        self::assertEquals('Quickbooks', $this->application->getPublicName());
     }
 
     /**
@@ -109,7 +109,7 @@ final class QuickbooksApplicationTest extends DatabaseTestCaseAbstract
     public function testGetRequestDto(): void
     {
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'token',
             self::CLIENT_ID,

@@ -48,7 +48,7 @@ final class FlexiBeeApplicationTest extends ControllerTestCaseAbstract
      */
     private function getAppInstall(): ApplicationInstall
     {
-        $appInstall = DataProvider::getBasicAppInstall($this->getApp()->getKey());
+        $appInstall = DataProvider::getBasicAppInstall($this->getApp()->getName());
 
         $appInstall->setSettings(
             [

@@ -35,7 +35,7 @@ final class ShipstationApplicationTest extends DatabaseTestCaseAbstract
     public function testWebhookSubscribeRequestDto(): void
     {
         $applicationInstall = DataProvider::getBasicAppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             self::API_KEY,
             self::API_SECRET,
         );
@@ -63,9 +63,9 @@ final class ShipstationApplicationTest extends DatabaseTestCaseAbstract
     /**
      *
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
-        self::assertEquals('Shipstation', $this->application->getName());
+        self::assertEquals('Shipstation', $this->application->getPublicName());
     }
 
     /**

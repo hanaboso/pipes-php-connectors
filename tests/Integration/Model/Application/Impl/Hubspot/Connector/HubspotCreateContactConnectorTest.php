@@ -11,7 +11,6 @@ use Hanaboso\HbPFConnectors\Model\Application\Impl\Hubspot\Connector\HubSpotCrea
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Hubspot\HubSpotApplication;
 use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use Hanaboso\Utils\File\File;
 use Hanaboso\Utils\String\Json;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
@@ -57,18 +56,6 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Hubspot\Connector\HubSpotCreateContactConnector::processEvent
-     *
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        self::expectExceptionCode(ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT);
-        $this->createConnector(DataProvider::createResponseDto())->processEvent(DataProvider::getProcessDto());
-    }
-
-    /**
      * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Hubspot\Connector\HubSpotCreateContactConnector::processAction
      *
      * @throws Exception
@@ -79,7 +66,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             Json::encode(['name' => 'John Doe', 'email' => 'noreply@johndoe.com', 'phone' => '555-555']),
         );
@@ -101,7 +88,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             Json::encode(['name' => 'John Doe', 'email' => 'noreply@johndoe.com', 'phone' => '555-555']),
         );
@@ -126,7 +113,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             Json::encode(['name' => 'John Doe', 'email' => 'noreply@johndoe.com', 'phone' => '555-555']),
         );
@@ -177,7 +164,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
      */
     private function createApplicationInstall(): ApplicationInstall
     {
-        $appInstall = DataProvider::getOauth2AppInstall($this->app->getKey());
+        $appInstall = DataProvider::getOauth2AppInstall($this->app->getName());
         $appInstall->setSettings(
             array_merge(
                 $appInstall->getSettings(),

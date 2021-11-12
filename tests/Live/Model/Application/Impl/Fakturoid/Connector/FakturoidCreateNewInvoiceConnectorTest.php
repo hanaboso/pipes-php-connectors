@@ -40,12 +40,12 @@ final class FakturoidCreateNewInvoiceConnectorTest extends DatabaseTestCaseAbstr
                 ],
             ],
         );
-        $applicationInstall->setKey($app->getKey());
+        $applicationInstall->setKey($app->getName());
         $applicationInstall->setUser($user);
         $this->pfd($applicationInstall);
         $conn         = self::getContainer()->get('hbpf.connector.fakturoid.create-new-invoice');
         $dataFromFile = File::getContent(__DIR__ . '/NewInvoiceRequest.json');
-        $dto          = DataProvider::getProcessDto($app->getKey(), $user, $dataFromFile);
+        $dto          = DataProvider::getProcessDto($app->getName(), $user, $dataFromFile);
         $conn->processAction($dto);
         self::assertFake();
     }

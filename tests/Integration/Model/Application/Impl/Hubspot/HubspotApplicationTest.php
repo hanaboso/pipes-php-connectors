@@ -43,10 +43,10 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
     /**
      *
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
         $this->setApplication();
-        self::assertEquals('HubSpot Application', $this->application->getName());
+        self::assertEquals('HubSpot Application', $this->application->getPublicName());
     }
 
     /**
@@ -87,7 +87,7 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
     {
         $this->setApplication();
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'token',
             self::CLIENT_ID,
@@ -165,7 +165,7 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
                 ApplicationInterface::AUTHORIZATION_SETTINGS => [ApplicationInterface::TOKEN => [OAuth2Provider::ACCESS_TOKEN => 'token123']],
             ],
         );
-        $this->pfd(DataProvider::getOauth2AppInstall($this->application->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->application->getName()));
         $webhookSubscription = new WebhookSubscription(
             'name',
             'node',

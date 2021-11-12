@@ -24,11 +24,11 @@ final class S3ApplicationTest extends DatabaseTestCaseAbstract
     private S3Application $application;
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\S3\S3Application::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\S3\S3Application::getName
      */
     public function testGetKey(): void
     {
-        self::assertEquals('s3', $this->application->getKey());
+        self::assertEquals('s3', $this->application->getName());
     }
 
     /**
@@ -40,11 +40,11 @@ final class S3ApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\S3\S3Application::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\S3\S3Application::getPublicName
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
-        self::assertEquals('Amazon Simple Storage Service', $this->application->getName());
+        self::assertEquals('Amazon Simple Storage Service', $this->application->getPublicName());
     }
 
     /**

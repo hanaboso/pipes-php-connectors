@@ -40,19 +40,19 @@ final class ShopifyApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication::getName
      */
     public function testGetKey(): void
     {
-        self::assertEquals('shopify', $this->application->getKey());
+        self::assertEquals('shopify', $this->application->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication::getPublicName
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
-        self::assertEquals('Shopify', $this->application->getName());
+        self::assertEquals('Shopify', $this->application->getPublicName());
     }
 
     /**
@@ -186,7 +186,7 @@ final class ShopifyApplicationTest extends DatabaseTestCaseAbstract
      */
     private function createApplication(): ApplicationInstall
     {
-        $applicationInstall = DataProvider::getBasicAppInstall($this->application->getKey());
+        $applicationInstall = DataProvider::getBasicAppInstall($this->application->getName());
 
         $applicationInstall->setSettings(
             [

@@ -5,7 +5,6 @@ namespace HbPFConnectorsTests\Integration\Model\Application\Impl\Shipstation\Con
 use Exception;
 use Hanaboso\CommonsBundle\Process\ProcessDto;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shipstation\Connector\ShipstationNewOrderConnector;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -30,7 +29,7 @@ final class ShipstationNewOrderConnectorTest extends DatabaseTestCaseAbstract
      *
      * @dataProvider getDataProvider
      */
-    public function testProcessEvent(int $code, bool $isValid): void
+    public function testProcessAction(int $code, bool $isValid): void
     {
         $this->mockCurl(
             [
@@ -51,23 +50,23 @@ final class ShipstationNewOrderConnectorTest extends DatabaseTestCaseAbstract
         $shipstationNewOrderConnector->setApplication($app);
 
         $applicationInstall = DataProvider::getBasicAppInstall(
-            $app->getKey(),
+            $app->getName(),
             self::API_KEY,
             self::API_SECRET,
         );
 
         $this->pfd($applicationInstall);
-        $response = $shipstationNewOrderConnector->processEvent(
+        $response = $shipstationNewOrderConnector->processAction(
             DataProvider::getProcessDto(
-                $app->getKey(),
+                $app->getName(),
                 self::API_KEY,
                 File::getContent(sprintf('%s/Data/newOrder.json', __DIR__)),
             ),
         );
 
-        $responseNoUrl = $shipstationNewOrderConnector->processEvent(
+        $responseNoUrl = $shipstationNewOrderConnector->processAction(
             DataProvider::getProcessDto(
-                $app->getKey(),
+                $app->getName(),
                 self::API_KEY,
                 File::getContent(sprintf('%s/Data/newOrderNoUrl.json', __DIR__)),
             ),
@@ -86,36 +85,6 @@ final class ShipstationNewOrderConnectorTest extends DatabaseTestCaseAbstract
         }
 
         self::assertEquals(ProcessDto::STOP_AND_FAILED, $responseNoUrl->getHeaders()['pf-result-code']);
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testProcessAction(): void
-    {
-        $app                          = self::getContainer()->get('hbpf.application.shipstation');
-        $shipstationNewOrderConnector = new ShipstationNewOrderConnector(
-            self::getContainer()->get('hbpf.transport.curl_manager'),
-            $this->dm,
-        );
-
-        $shipstationNewOrderConnector->setApplication($app);
-
-        $applicationInstall = DataProvider::getBasicAppInstall(
-            $app->getKey(),
-            self::API_KEY,
-            self::API_SECRET,
-        );
-
-        $this->pfd($applicationInstall);
-        self::expectException(ConnectorException::class);
-        $shipstationNewOrderConnector->processAction(
-            DataProvider::getProcessDto(
-                $app->getKey(),
-                self::API_KEY,
-                File::getContent(sprintf('%s/Data/newOrder.json', __DIR__)),
-            ),
-        );
     }
 
     /**

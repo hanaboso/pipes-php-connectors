@@ -37,16 +37,6 @@ final class FlexiBeeGetContactsArrayConnectorTest extends DatabaseTestCaseAbstra
 
     /**
      * @throws ConnectorException
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        self::expectExceptionCode(ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT);
-        $this->createConnector(DataProvider::createResponseDto())->processEvent(DataProvider::getProcessDto());
-    }
-
-    /**
-     * @throws ConnectorException
      * @throws Exception
      */
     public function testProcessAction(): void
@@ -56,7 +46,7 @@ final class FlexiBeeGetContactsArrayConnectorTest extends DatabaseTestCaseAbstra
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->getApp()->getKey(),
+            $this->getApp()->getName(),
             'user',
             $body,
         );
@@ -80,7 +70,7 @@ final class FlexiBeeGetContactsArrayConnectorTest extends DatabaseTestCaseAbstra
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->getApp()->getKey(),
+            $this->getApp()->getName(),
             'user',
             $body,
         );
@@ -97,7 +87,7 @@ final class FlexiBeeGetContactsArrayConnectorTest extends DatabaseTestCaseAbstra
      */
     private function getAppInstall(): void
     {
-        $appInstall = DataProvider::getBasicAppInstall($this->getApp()->getKey());
+        $appInstall = DataProvider::getBasicAppInstall($this->getApp()->getName());
 
         $appInstall->addSettings(
             [

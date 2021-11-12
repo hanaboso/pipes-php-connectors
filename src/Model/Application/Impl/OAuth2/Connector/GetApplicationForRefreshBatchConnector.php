@@ -9,7 +9,6 @@ use Hanaboso\CommonsBundle\Process\ProcessDto;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Application\Repository\ApplicationInstallRepository;
 use Hanaboso\PipesPhpSdk\Connector\ConnectorAbstract;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessEventNotSupportedTrait;
 use Hanaboso\Utils\Date\DateTimeUtils;
 use Hanaboso\Utils\Exception\DateTimeException;
 use Hanaboso\Utils\String\Json;
@@ -21,8 +20,6 @@ use Hanaboso\Utils\String\Json;
  */
 final class GetApplicationForRefreshBatchConnector extends ConnectorAbstract
 {
-
-    use ProcessEventNotSupportedTrait;
 
     public const APPLICATION_ID = 'get_application_for_refresh';
 

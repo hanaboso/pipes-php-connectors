@@ -25,23 +25,23 @@ final class SendGridApplicationTest extends DatabaseTestCaseAbstract
     private SendGridApplication $app;
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\SendGrid\SendGridApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\SendGrid\SendGridApplication::getName
      *
      * @throws Exception
      */
     public function testGetKey(): void
     {
-        self::assertEquals('send-grid', $this->app->getKey());
+        self::assertEquals('send-grid', $this->app->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\SendGrid\SendGridApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\SendGrid\SendGridApplication::getPublicName
      *
      * @throws Exception
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
-        self::assertEquals('SendGrid Application', $this->app->getName());
+        self::assertEquals('SendGrid Application', $this->app->getPublicName());
     }
 
     /**
@@ -61,7 +61,7 @@ final class SendGridApplicationTest extends DatabaseTestCaseAbstract
      */
     public function testIsAuthorized(): void
     {
-        $appInstall = DataProvider::createApplicationInstall($this->app->getKey());
+        $appInstall = DataProvider::createApplicationInstall($this->app->getName());
         self::assertFalse($this->app->isAuthorized($appInstall));
 
         $appInstall->setSettings(
@@ -79,7 +79,7 @@ final class SendGridApplicationTest extends DatabaseTestCaseAbstract
     public function testGetRequestDto(): void
     {
         $appInstall = DataProvider::createApplicationInstall(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             [ApplicationInterface::AUTHORIZATION_SETTINGS => [SendGridApplication::API_KEY => 'key']],
         );
@@ -89,7 +89,7 @@ final class SendGridApplicationTest extends DatabaseTestCaseAbstract
         self::assertEquals(SendGridApplication::BASE_URL, $dto->getUri(TRUE));
         self::assertEquals(Json::encode(['foo' => 'bar']), $dto->getBody());
 
-        $appInstall = DataProvider::createApplicationInstall($this->app->getKey());
+        $appInstall = DataProvider::createApplicationInstall($this->app->getName());
         self::expectException(ApplicationInstallException::class);
         $this->app->getRequestDto($appInstall, CurlManager::METHOD_GET);
     }

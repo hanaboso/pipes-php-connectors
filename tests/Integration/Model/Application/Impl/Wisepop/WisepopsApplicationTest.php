@@ -35,19 +35,19 @@ final class WisepopsApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Wisepop\WisepopsApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Wisepop\WisepopsApplication::getName
      */
     public function testGetKey(): void
     {
-        self::assertEquals('wisepops', $this->application->getKey());
+        self::assertEquals('wisepops', $this->application->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Wisepop\WisepopsApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Wisepop\WisepopsApplication::getPublicName
      */
     public function testGetName(): void
     {
-        self::assertEquals('Wisepops', $this->application->getName());
+        self::assertEquals('Wisepops', $this->application->getPublicName());
     }
 
     /**

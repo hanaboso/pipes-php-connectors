@@ -53,22 +53,6 @@ final class MailchimpTagContactConnector extends ConnectorAbstract
      * @param ProcessDto $dto
      *
      * @return ProcessDto
-     * @throws ConnectorException
-     */
-    public function processEvent(ProcessDto $dto): ProcessDto
-    {
-        $dto;
-
-        throw new ConnectorException(
-            'ProcessEvent is not implemented',
-            ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT,
-        );
-    }
-
-    /**
-     * @param ProcessDto $dto
-     *
-     * @return ProcessDto
      * @throws ApplicationInstallException
      * @throws CurlException
      * @throws PipesFrameworkException

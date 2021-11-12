@@ -67,25 +67,25 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication::getName
      *
      * @throws Exception
      */
     public function testGetKey(): void
     {
         $this->setApplication();
-        self::assertEquals('shoptet', $this->application->getKey());
+        self::assertEquals('shoptet', $this->application->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication::getPublicName
      *
      * @throws Exception
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
         $this->setApplication();
-        self::assertEquals('Shoptet', $this->application->getName());
+        self::assertEquals('Shoptet', $this->application->getPublicName());
     }
 
     /**
@@ -184,7 +184,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     public function testGetAuthUrlWithServerUrl(): void
     {
         $this->setApplication();
-        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getKey())
+        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getName())
             ->setSettings(
                 [ApplicationAbstract::FORM => ['oauth_url' => 'https://12345.myshoptet.com/action/ApiOAuthServer/token']],
             );
@@ -203,7 +203,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     public function testGetTokenUrlWithServerUrl(): void
     {
         $this->setApplication();
-        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getKey())
+        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getName())
             ->addSettings(
                 [ApplicationAbstract::FORM => ['api_token_url' => 'https://12345.myshoptet.com/action/ApiOAuthServer/getAccessToken']],
             );
@@ -384,7 +384,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     public function testCreateDto(): void
     {
         $this->setApplication();
-        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getKey())
+        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getName())
             ->addSettings(
                 [
                     ApplicationAbstract::FORM =>

@@ -41,7 +41,7 @@ final class PipedriveApplication extends BasicApplicationAbstract implements Web
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'pipedrive';
     }
@@ -49,7 +49,7 @@ final class PipedriveApplication extends BasicApplicationAbstract implements Web
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Pipedrive';
     }

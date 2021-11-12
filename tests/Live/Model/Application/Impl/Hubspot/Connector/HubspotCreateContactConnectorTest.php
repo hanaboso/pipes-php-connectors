@@ -32,7 +32,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
 
         $this->pfd(
             DataProvider::getOauth2AppInstall(
-                $app->getKey(),
+                $app->getName(),
                 'user',
                 'CPn036zALRICAQEYu_j2AiDpsIEEKJSQDDIZAAoa8Oq06qseob1dXiP5KB1H3dY5AG0ShToPAAoCQQAADIADAAgAAAABQhkAChrw6vXLFCILvuPoTaMFCHwh43lT3Ura',
             ),
@@ -41,7 +41,7 @@ final class HubspotCreateContactConnectorTest extends DatabaseTestCaseAbstract
 
         $hubspotCreateContactConnector->processAction(
             DataProvider::getProcessDto(
-                $app->getKey(),
+                $app->getName(),
                 'user',
                 File::getContent(__DIR__ . '/Data/contactBody.json'),
             ),

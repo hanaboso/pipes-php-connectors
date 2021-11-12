@@ -47,24 +47,24 @@ final class HubspotCreateContactMapperTest extends DatabaseTestCaseAbstract
         $shipstationNewOrderConnector->setApplication($shipstation);
 
         $applicationInstall = DataProvider::getBasicAppInstall(
-            $shipstation->getKey(),
+            $shipstation->getName(),
             self::API_KEY,
             self::API_SECRET,
         );
 
         $this->pfd($applicationInstall);
 
-        $response = $shipstationNewOrderConnector->processEvent(
+        $response = $shipstationNewOrderConnector->processAction(
             DataProvider::getProcessDto(
-                $shipstation->getKey(),
+                $shipstation->getName(),
                 self::API_KEY,
                 File::getContent(sprintf('%s/Data/newOrderShipstation.json', __DIR__)),
             ),
         );
 
-        $responseNoBody = $shipstationNewOrderConnector->processEvent(
+        $responseNoBody = $shipstationNewOrderConnector->processAction(
             DataProvider::getProcessDto(
-                $shipstation->getKey(),
+                $shipstation->getName(),
                 self::API_KEY,
             ),
         );
@@ -72,8 +72,8 @@ final class HubspotCreateContactMapperTest extends DatabaseTestCaseAbstract
         $response->setData(File::getContent(sprintf('%s/Data/responseShipstation.json', __DIR__)));
 
         $hubspotCreateContactMapper = new HubSpotCreateContactMapper();
-        $dto                        = $hubspotCreateContactMapper->process($response);
-        $dtoNoBody                  = $hubspotCreateContactMapper->process($responseNoBody);
+        $dto                        = $hubspotCreateContactMapper->processAction($response);
+        $dtoNoBody                  = $hubspotCreateContactMapper->processAction($responseNoBody);
 
         self::assertEquals(
             Json::decode($dto->getData()),

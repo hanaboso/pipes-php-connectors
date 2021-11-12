@@ -59,12 +59,12 @@ final class ShoptetUpdatedOrderConnectorTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processEvent
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processAction
      * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetConnectorAbstract::processResponse
      *
      * @throws Exception
      */
-    public function testProcessEvent(): void
+    public function testProcessAction(): void
     {
         $applicationInstall = DataProvider::createApplicationInstall(
             ShoptetApplication::SHOPTET_KEY,
@@ -85,7 +85,7 @@ final class ShoptetUpdatedOrderConnectorTest extends DatabaseTestCaseAbstract
             ),
         );
 
-        $dto = $this->connector->processEvent(
+        $dto = $this->connector->processAction(
             $this->prepareProcessDto('{"eventInstance":"1", "eshopId": "user"}', self::HEADERS),
         );
 
@@ -93,7 +93,7 @@ final class ShoptetUpdatedOrderConnectorTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdateOrderConnector::processEvent
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdateOrderConnector::processAction
      *
      * @throws Exception
      */
@@ -107,11 +107,11 @@ final class ShoptetUpdatedOrderConnectorTest extends DatabaseTestCaseAbstract
             ConnectorException::CONNECTOR_FAILED_TO_PROCESS,
             "Connector 'shoptet-updated-order-connector': Content 'eventInstance' does not exist!",
         );
-        $this->connector->processEvent($this->prepareProcessDto(['eshopId' => 'user'], self::HEADERS));
+        $this->connector->processAction($this->prepareProcessDto(['eshopId' => 'user'], self::HEADERS));
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processEvent
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processAction
      *
      * @throws Exception
      */
@@ -137,13 +137,13 @@ final class ShoptetUpdatedOrderConnectorTest extends DatabaseTestCaseAbstract
             $this->prepareSender($this->prepareSenderErrorResponse()),
         );
 
-        $this->connector->processEvent(
+        $this->connector->processAction(
             $this->prepareProcessDto('{"eventInstance":"1", "eshopId": "user"}', self::HEADERS),
         );
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processEvent
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processAction
      * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetConnectorAbstract::processResponse
      *
      * @throws Exception
@@ -174,14 +174,14 @@ final class ShoptetUpdatedOrderConnectorTest extends DatabaseTestCaseAbstract
             ),
         );
 
-        $this->connector->processEvent(
+        $this->connector->processAction(
             $this->prepareProcessDto('{"eventInstance":"1", "eshopId": "user"}', self::HEADERS),
         );
     }
 
     /**
      * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetConnectorAbstract::processResponse
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processEvent
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processAction
      *
      * @throws Exception
      */
@@ -214,25 +214,9 @@ final class ShoptetUpdatedOrderConnectorTest extends DatabaseTestCaseAbstract
             ),
         );
 
-        $this->connector->processEvent(
+        $this->connector->processAction(
             $this->prepareProcessDto('{"eventInstance":"1", "eshopId": "user"}', self::HEADERS),
         );
-    }
-
-    /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdatedOrderConnector::processAction
-     *
-     * @throws Exception
-     */
-    public function testProcessAction(): void
-    {
-        self::assertException(
-            ConnectorException::class,
-            ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_ACTION,
-            sprintf('Method %s::processAction is not supported!', ShoptetUpdatedOrderConnector::class),
-        );
-
-        $this->connector->processAction($this->prepareProcessDto());
     }
 
     /**

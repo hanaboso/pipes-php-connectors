@@ -275,21 +275,6 @@ final class ShoptetUpdateOrderConnectorTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetUpdateOrderConnector::processEvent
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        self::assertException(
-            ConnectorException::class,
-            ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT,
-            sprintf('Method %s::processEvent is not supported!', ShoptetUpdateOrderConnector::class),
-        );
-
-        $this->connector->processEvent($this->prepareProcessDto());
-    }
-
-    /**
      * @throws Exception
      */
     protected function setUp(): void

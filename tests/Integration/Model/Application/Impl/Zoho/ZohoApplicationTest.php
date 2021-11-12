@@ -38,26 +38,26 @@ final class ZohoApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Zoho\ZohoApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Zoho\ZohoApplication::getName
      */
     public function testGetKey(): void
     {
         $this->setApplication();
         self::assertEquals(
             'zoho',
-            $this->application->getKey(),
+            $this->application->getName(),
         );
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Zoho\ZohoApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Zoho\ZohoApplication::getPublicName
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
         $this->setApplication();
         self::assertEquals(
             'Zoho',
-            $this->application->getName(),
+            $this->application->getPublicName(),
         );
     }
 
@@ -98,7 +98,7 @@ final class ZohoApplicationTest extends DatabaseTestCaseAbstract
     public function testGetRequestDto(): void
     {
         $this->setApplication();
-        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getKey());
+        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getName());
         $this->pfd($applicationInstall);
 
         $dto = $this->application->getRequestDto(
@@ -151,7 +151,7 @@ final class ZohoApplicationTest extends DatabaseTestCaseAbstract
     {
         $this->setApplication();
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'token123',
             self::CLIENT_ID,

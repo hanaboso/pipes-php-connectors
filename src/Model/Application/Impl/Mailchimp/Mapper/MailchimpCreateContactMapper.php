@@ -23,9 +23,9 @@ final class MailchimpCreateContactMapper extends CustomNodeAbstract
      * @throws PipesFrameworkException
      * @throws JsonException
      */
-    public function process(ProcessDto $dto): ProcessDto
+    public function processAction(ProcessDto $dto): ProcessDto
     {
-        $body = Json::decode($dto->getData()) ?? NULL;
+        $body = Json::decode($dto->getData());
 
         if (!isset($body['properties'])) {
             $message = 'There is missing field "properties" in ProcessDto.';

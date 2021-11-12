@@ -24,7 +24,7 @@ final class IDokladNewInvoiceRecievedConnectorTest extends DatabaseTestCaseAbstr
         $app = self::getContainer()->get('hbpf.application.i-doklad');
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             'token',
             'ae89f69a-44f4-4163-ac98-************',
@@ -33,7 +33,7 @@ final class IDokladNewInvoiceRecievedConnectorTest extends DatabaseTestCaseAbstr
         $this->pfd($applicationInstall);
         $conn         = self::getContainer()->get('hbpf.connector.i-doklad.new-invoice-recieved');
         $dataFromFile = File::getContent(__DIR__ . '/newInvoice.json');
-        $dto          = DataProvider::getProcessDto($app->getKey(), 'user', $dataFromFile);
+        $dto          = DataProvider::getProcessDto($app->getName(), 'user', $dataFromFile);
         $conn->processAction($dto);
         self::assertFake();
     }

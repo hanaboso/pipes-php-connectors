@@ -10,9 +10,7 @@ use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Application\Base\ApplicationInterface;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Authorization\Base\Basic\BasicApplicationInterface;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
-use HbPFConnectorsTests\DataProvider;
 
 /**
  * Class FakturoidAbstractConnectorTest
@@ -42,16 +40,6 @@ abstract class FakturoidAbstractConnectorTest extends DatabaseTestCaseAbstract
      * @return FakturoidAbstractConnector
      */
     abstract protected function setApplication(): FakturoidAbstractConnector;
-
-    /**
-     * @throws ConnectorException
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        self::expectExceptionCode(ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT);
-        $this->createConnector(DataProvider::createResponseDto())->processEvent(DataProvider::getProcessDto());
-    }
 
     /**
      * @param string|null $account

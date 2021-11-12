@@ -39,7 +39,7 @@ final class ShopifyApplication extends BasicApplicationAbstract implements Webho
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'shopify';
     }
@@ -47,7 +47,7 @@ final class ShopifyApplication extends BasicApplicationAbstract implements Webho
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Shopify';
     }
