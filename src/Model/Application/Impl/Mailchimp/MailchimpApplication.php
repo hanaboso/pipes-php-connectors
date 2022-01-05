@@ -59,7 +59,7 @@ final class MailchimpApplication extends OAuth2ApplicationAbstract implements We
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'mailchimp';
     }
@@ -67,7 +67,7 @@ final class MailchimpApplication extends OAuth2ApplicationAbstract implements We
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Mailchimp';
     }

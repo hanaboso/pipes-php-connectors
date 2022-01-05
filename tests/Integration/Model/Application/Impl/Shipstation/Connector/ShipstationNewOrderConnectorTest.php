@@ -5,7 +5,7 @@ namespace HbPFConnectorsTests\Integration\Model\Application\Impl\Shipstation\Con
 use Exception;
 use Hanaboso\CommonsBundle\Process\ProcessDto;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shipstation\Connector\ShipstationNewOrderConnector;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 use HbPFConnectorsTests\MockCurlMethod;
@@ -29,7 +29,7 @@ final class ShipstationNewOrderConnectorTest extends DatabaseTestCaseAbstract
      *
      * @dataProvider getDataProvider
      */
-    public function testProcessEvent(int $code, bool $isValid): void
+    public function testProcessAction(int $code, bool $isValid): void
     {
         $this->mockCurl(
             [
@@ -41,34 +41,34 @@ final class ShipstationNewOrderConnectorTest extends DatabaseTestCaseAbstract
             ],
         );
 
-        $app                          = self::$container->get('hbpf.application.shipstation');
+        $app                          = self::getContainer()->get('hbpf.application.shipstation');
         $shipstationNewOrderConnector = new ShipstationNewOrderConnector(
-            self::$container->get('hbpf.transport.curl_manager'),
+            self::getContainer()->get('hbpf.transport.curl_manager'),
             $this->dm,
         );
 
         $shipstationNewOrderConnector->setApplication($app);
 
         $applicationInstall = DataProvider::getBasicAppInstall(
-            $app->getKey(),
+            $app->getName(),
             self::API_KEY,
             self::API_SECRET,
         );
 
         $this->pfd($applicationInstall);
-        $response = $shipstationNewOrderConnector->processEvent(
+        $response = $shipstationNewOrderConnector->processAction(
             DataProvider::getProcessDto(
-                $app->getKey(),
+                $app->getName(),
                 self::API_KEY,
-                (string) file_get_contents(sprintf('%s/Data/newOrder.json', __DIR__), TRUE),
+                File::getContent(sprintf('%s/Data/newOrder.json', __DIR__)),
             ),
         );
 
-        $responseNoUrl = $shipstationNewOrderConnector->processEvent(
+        $responseNoUrl = $shipstationNewOrderConnector->processAction(
             DataProvider::getProcessDto(
-                $app->getKey(),
+                $app->getName(),
                 self::API_KEY,
-                (string) file_get_contents(sprintf('%s/Data/newOrderNoUrl.json', __DIR__), TRUE),
+                File::getContent(sprintf('%s/Data/newOrderNoUrl.json', __DIR__)),
             ),
         );
 
@@ -88,36 +88,6 @@ final class ShipstationNewOrderConnectorTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @throws Exception
-     */
-    public function testProcessAction(): void
-    {
-        $app                          = self::$container->get('hbpf.application.shipstation');
-        $shipstationNewOrderConnector = new ShipstationNewOrderConnector(
-            self::$container->get('hbpf.transport.curl_manager'),
-            $this->dm,
-        );
-
-        $shipstationNewOrderConnector->setApplication($app);
-
-        $applicationInstall = DataProvider::getBasicAppInstall(
-            $app->getKey(),
-            self::API_KEY,
-            self::API_SECRET,
-        );
-
-        $this->pfd($applicationInstall);
-        self::expectException(ConnectorException::class);
-        $shipstationNewOrderConnector->processAction(
-            DataProvider::getProcessDto(
-                $app->getKey(),
-                self::API_KEY,
-                (string) file_get_contents(sprintf('%s/Data/newOrder.json', __DIR__), TRUE),
-            ),
-        );
-    }
-
-    /**
      * @return mixed[]
      */
     public function getDataProvider(): array
@@ -134,7 +104,7 @@ final class ShipstationNewOrderConnectorTest extends DatabaseTestCaseAbstract
     public function testGetId(): void
     {
         $shipstationNewOrderConnector = new ShipstationNewOrderConnector(
-            self::$container->get('hbpf.transport.curl_manager'),
+            self::getContainer()->get('hbpf.transport.curl_manager'),
             $this->dm,
         );
         self::assertEquals(

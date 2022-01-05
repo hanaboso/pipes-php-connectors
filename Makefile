@@ -25,12 +25,6 @@ docker-compose.ci.yml:
 	sed -r 's/^(\s+ports:)$$/#\1/g; s/^(\s+- \$$\{DEV_IP\}.*)$$/#\1/g' docker-compose.yml > docker-compose.ci.yml
 
 # Docker
-prod-build: .env
-	docker pull $(IMAGE):dev
-	docker-compose -f docker-compose.yml run --rm --no-deps app  composer install --ignore-platform-reqs
-	docker build -t $(IMAGE):master .
-	docker push $(IMAGE):master
-
 docker-up-force: .env .lo0-up
 	$(DC) pull
 	$(DC) up -d --force-recreate --remove-orphans

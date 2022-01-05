@@ -9,7 +9,6 @@ use Hanaboso\CommonsBundle\Transport\Curl\CurlManager;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PipesPhpSdk\Application\Exception\ApplicationInstallException;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessActionNotSupportedTrait;
 use Hanaboso\PipesPhpSdk\Utils\ProcessContentTrait;
 use Hanaboso\Utils\System\PipesHeaders;
 use JsonException;
@@ -23,7 +22,6 @@ final class ShoptetUpdatedOrderConnector extends ShoptetConnectorAbstract
 {
 
     use ProcessContentTrait;
-    use ProcessActionNotSupportedTrait;
 
     private const URL = 'api/orders/%s?include=notes';
 
@@ -47,7 +45,7 @@ final class ShoptetUpdatedOrderConnector extends ShoptetConnectorAbstract
      * @throws OnRepeatException
      * @throws JsonException
      */
-    public function processEvent(ProcessDto $dto): ProcessDto
+    public function processAction(ProcessDto $dto): ProcessDto
     {
         $dto
             ->addHeader(PipesHeaders::createKey(PipesHeaders::USER), (string) $this->getContentByKey($dto, 'eshopId'))

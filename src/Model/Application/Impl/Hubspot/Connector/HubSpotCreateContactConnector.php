@@ -77,22 +77,6 @@ final class HubSpotCreateContactConnector extends ConnectorAbstract implements L
      * @param ProcessDto $dto
      *
      * @return ProcessDto
-     * @throws ConnectorException
-     */
-    public function processEvent(ProcessDto $dto): ProcessDto
-    {
-        $dto;
-
-        throw new ConnectorException(
-            'ProcessEvent is not implemented',
-            ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT,
-        );
-    }
-
-    /**
-     * @param ProcessDto $dto
-     *
-     * @return ProcessDto
      * @throws ApplicationInstallException
      * @throws OnRepeatException
      * @throws PipesFrameworkException

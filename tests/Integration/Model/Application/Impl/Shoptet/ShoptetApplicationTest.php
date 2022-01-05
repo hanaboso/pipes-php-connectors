@@ -45,11 +45,11 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     public function testConstructor(): void
     {
         /** @var OAuth2Provider $provider */
-        $provider = self::$container->get('hbpf.providers.oauth2_provider');
+        $provider = self::getContainer()->get('hbpf.providers.oauth2_provider');
         /** @var DocumentManager $dm */
-        $dm = self::$container->get('doctrine_mongodb.odm.default_document_manager');
+        $dm = self::getContainer()->get('doctrine_mongodb.odm.default_document_manager');
         /** @var CurlManager $sender */
-        $sender = self::$container->get('hbpf.transport.curl_manager');
+        $sender = self::getContainer()->get('hbpf.transport.curl_manager');
         new ShoptetApplication($provider, $dm, $sender, 'localhost');
 
         self::assertFake();
@@ -67,25 +67,25 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication::getName
      *
      * @throws Exception
      */
     public function testGetKey(): void
     {
         $this->setApplication();
-        self::assertEquals('shoptet', $this->application->getKey());
+        self::assertEquals('shoptet', $this->application->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication::getPublicName
      *
      * @throws Exception
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
         $this->setApplication();
-        self::assertEquals('Shoptet', $this->application->getName());
+        self::assertEquals('Shoptet', $this->application->getPublicName());
     }
 
     /**
@@ -132,7 +132,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     {
         $this->mockSender('{ "access_token": "___access token___", "expires_in": 3600}');
 
-        $this->application = self::$container->get('hbpf.application.shoptet');
+        $this->application = self::getContainer()->get('hbpf.application.shoptet');
         $dto               = $this->application->getRequestDto(
             (new ApplicationInstall())
                 ->setSettings(
@@ -184,7 +184,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     public function testGetAuthUrlWithServerUrl(): void
     {
         $this->setApplication();
-        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getKey())
+        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getName())
             ->setSettings(
                 [ApplicationAbstract::FORM => ['oauth_url' => 'https://12345.myshoptet.com/action/ApiOAuthServer/token']],
             );
@@ -203,7 +203,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     public function testGetTokenUrlWithServerUrl(): void
     {
         $this->setApplication();
-        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getKey())
+        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getName())
             ->addSettings(
                 [ApplicationAbstract::FORM => ['api_token_url' => 'https://12345.myshoptet.com/action/ApiOAuthServer/getAccessToken']],
             );
@@ -384,7 +384,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     public function testCreateDto(): void
     {
         $this->setApplication();
-        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getKey())
+        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getName())
             ->addSettings(
                 [
                     ApplicationAbstract::FORM =>
@@ -425,7 +425,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
     private function setApplication(): void
     {
         $this->mockRedirect('https://12345.myshoptet.com/action/ApiOAuthServer/token', self::CLIENT_ID);
-        $this->application = self::$container->get('hbpf.application.shoptet');
+        $this->application = self::getContainer()->get('hbpf.application.shoptet');
     }
 
     /**
@@ -446,7 +446,7 @@ final class ShoptetApplicationTest extends DatabaseTestCaseAbstract
         );
 
         $this->setProperty(
-            self::$container->get('hbpf.application.shoptet'),
+            self::getContainer()->get('hbpf.application.shoptet'),
             'sender',
             $this->prepareSender($callback),
         );

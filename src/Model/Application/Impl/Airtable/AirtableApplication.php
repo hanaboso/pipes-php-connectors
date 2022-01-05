@@ -28,7 +28,7 @@ final class AirtableApplication extends BasicApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'airtable';
     }
@@ -36,7 +36,7 @@ final class AirtableApplication extends BasicApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Airtable';
     }

@@ -30,7 +30,7 @@ final class BigcommerceApplication extends OAuth2ApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'bigcommerce';
     }
@@ -38,7 +38,7 @@ final class BigcommerceApplication extends OAuth2ApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Bigcommerce';
     }

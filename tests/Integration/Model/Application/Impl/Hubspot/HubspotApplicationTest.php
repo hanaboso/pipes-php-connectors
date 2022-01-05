@@ -43,10 +43,10 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
     /**
      *
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
         $this->setApplication();
-        self::assertEquals('HubSpot Application', $this->application->getName());
+        self::assertEquals('HubSpot Application', $this->application->getPublicName());
     }
 
     /**
@@ -87,7 +87,7 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
     {
         $this->setApplication();
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'token',
             self::CLIENT_ID,
@@ -151,7 +151,7 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
     {
         $this->setApplication();
         $hubspotCreateContactConnector = new HubSpotCreateContactConnector(
-            self::$container->get('hbpf.transport.curl_manager'),
+            self::getContainer()->get('hbpf.transport.curl_manager'),
             $this->dm,
         );
 
@@ -165,7 +165,7 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
                 ApplicationInterface::AUTHORIZATION_SETTINGS => [ApplicationInterface::TOKEN => [OAuth2Provider::ACCESS_TOKEN => 'token123']],
             ],
         );
-        $this->pfd(DataProvider::getOauth2AppInstall($this->application->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->application->getName()));
         $webhookSubscription = new WebhookSubscription(
             'name',
             'node',
@@ -201,7 +201,7 @@ final class HubspotApplicationTest extends DatabaseTestCaseAbstract
     private function setApplication(): void
     {
         $this->mockRedirect(HubSpotApplication::HUBSPOT_URL, self::CLIENT_ID, 'contacts');
-        $this->application = self::$container->get('hbpf.application.hub-spot');
+        $this->application = self::getContainer()->get('hbpf.application.hub-spot');
     }
 
 }

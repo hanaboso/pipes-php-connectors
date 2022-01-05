@@ -61,7 +61,7 @@ final class RefreshOAuth2TokenNode extends CustomNodeAbstract
      * @throws MongoDBException
      * @throws LockException
      */
-    public function process(ProcessDto $dto): ProcessDto
+    public function processAction(ProcessDto $dto): ProcessDto
     {
         $applicationId = PipesHeaders::get(GetApplicationForRefreshBatchConnector::APPLICATION_ID, $dto->getHeaders());
         /** @var ApplicationInstall|null $applicationInstall */

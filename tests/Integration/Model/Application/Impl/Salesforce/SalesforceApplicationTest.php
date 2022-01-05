@@ -38,26 +38,26 @@ final class SalesforceApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Salesforce\SalesforceApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Salesforce\SalesforceApplication::getName
      */
     public function testGetKey(): void
     {
         $this->setApplication();
         self::assertEquals(
             'salesforce',
-            $this->application->getKey(),
+            $this->application->getName(),
         );
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Salesforce\SalesforceApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Salesforce\SalesforceApplication::getPublicName
      */
     public function testGetName(): void
     {
         $this->setApplication();
         self::assertEquals(
             'Salesforce',
-            $this->application->getName(),
+            $this->application->getPublicName(),
         );
     }
 
@@ -102,7 +102,7 @@ final class SalesforceApplicationTest extends DatabaseTestCaseAbstract
     public function testGetRequestDto(): void
     {
         $this->setApplication();
-        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getKey());
+        $applicationInstall = DataProvider::getOauth2AppInstall($this->application->getName());
         $this->pfd($applicationInstall);
 
         $dto = $this->application->getRequestDto(
@@ -154,7 +154,7 @@ final class SalesforceApplicationTest extends DatabaseTestCaseAbstract
     {
         $this->setApplication();
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $this->application->getKey(),
+            $this->application->getName(),
             'user',
             'token123',
             self::CLIENT_ID,
@@ -170,7 +170,7 @@ final class SalesforceApplicationTest extends DatabaseTestCaseAbstract
     private function setApplication(): void
     {
         $this->mockRedirect('https://login.salesforce.com/services/oauth2/authorize', self::CLIENT_ID);
-        $this->application = self::$container->get('hbpf.application.salesforce');
+        $this->application = self::getContainer()->get('hbpf.application.salesforce');
     }
 
 }

@@ -13,7 +13,6 @@ use Hanaboso\PipesPhpSdk\Application\Exception\ApplicationInstallException;
 use Hanaboso\PipesPhpSdk\Application\Repository\ApplicationInstallRepository;
 use Hanaboso\PipesPhpSdk\Connector\ConnectorAbstract;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessEventNotSupportedTrait;
 use Hanaboso\Utils\Exception\PipesFrameworkException;
 use Hanaboso\Utils\String\Json;
 use Hanaboso\Utils\Validations\Validations;
@@ -26,8 +25,6 @@ use LogicException;
  */
 final class IDokladNewInvoiceRecievedConnector extends ConnectorAbstract
 {
-
-    use ProcessEventNotSupportedTrait;
 
     /**
      * @var ApplicationInstallRepository

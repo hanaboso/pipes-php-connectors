@@ -9,7 +9,6 @@ use Hanaboso\CommonsBundle\Transport\Curl\CurlManager;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessEventNotSupportedTrait;
 use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessExceptionTrait;
 use Hanaboso\Utils\Exception\PipesFrameworkException;
 use JsonException;
@@ -22,7 +21,6 @@ use JsonException;
 final class ShoptetUpdateOrderConnector extends ShoptetConnectorAbstract
 {
 
-    use ProcessEventNotSupportedTrait;
     use ProcessExceptionTrait;
 
     private const URL = '/api/orders/%s/status?suppressDocumentGeneration=true&suppressEmailSending=true&suppressSmsSending=true';

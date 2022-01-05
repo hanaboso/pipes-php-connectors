@@ -14,7 +14,6 @@ use Hanaboso\PipesPhpSdk\Application\Exception\ApplicationInstallException;
 use Hanaboso\PipesPhpSdk\Application\Repository\ApplicationInstallRepository;
 use Hanaboso\PipesPhpSdk\Connector\ConnectorAbstract;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessEventNotSupportedTrait;
 use Hanaboso\Utils\Exception\DateTimeException;
 use Hanaboso\Utils\Exception\PipesFrameworkException;
 use Hanaboso\Utils\String\Json;
@@ -26,8 +25,6 @@ use Hanaboso\Utils\String\Json;
  */
 final class FlexiBeeCreateNewContactConnector extends ConnectorAbstract
 {
-
-    use ProcessEventNotSupportedTrait;
 
     private const ID = 'flexibee.create-new-contact';
 

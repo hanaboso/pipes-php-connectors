@@ -25,23 +25,23 @@ final class FakturoidApplicationTest extends DatabaseTestCaseAbstract
     private FakturoidApplication $app;
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Fakturoid\FakturoidApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Fakturoid\FakturoidApplication::getName
      *
      * @throws Exception
      */
     public function testGetKey(): void
     {
-        self::assertEquals('fakturoid', $this->app->getKey());
+        self::assertEquals('fakturoid', $this->app->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Fakturoid\FakturoidApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Fakturoid\FakturoidApplication::getPublicName
      *
      * @throws Exception
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
-        self::assertEquals('Fakturoid aplication', $this->app->getName());
+        self::assertEquals('Fakturoid aplication', $this->app->getPublicName());
     }
 
     /**
@@ -94,7 +94,7 @@ final class FakturoidApplicationTest extends DatabaseTestCaseAbstract
      */
     public function testGetRequestDtoWithData(): void
     {
-        $app                = self::$container->get('hbpf.application.fakturoid');
+        $app                = self::getContainer()->get('hbpf.application.fakturoid');
         $applicationInstall = new ApplicationInstall();
         $applicationInstall->setSettings(
             [
@@ -129,7 +129,7 @@ final class FakturoidApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->app = self::$container->get('hbpf.application.fakturoid');
+        $this->app = self::getContainer()->get('hbpf.application.fakturoid');
     }
 
 }

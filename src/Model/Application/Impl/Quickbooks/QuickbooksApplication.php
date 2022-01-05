@@ -31,7 +31,7 @@ final class QuickbooksApplication extends OAuth2ApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'quickbooks';
     }
@@ -39,7 +39,7 @@ final class QuickbooksApplication extends OAuth2ApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Quickbooks';
     }

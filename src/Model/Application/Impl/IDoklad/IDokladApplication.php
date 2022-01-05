@@ -29,7 +29,7 @@ final class IDokladApplication extends OAuth2ApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'i-doklad';
     }
@@ -37,7 +37,7 @@ final class IDokladApplication extends OAuth2ApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'iDoklad Application';
     }

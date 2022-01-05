@@ -12,7 +12,6 @@ use Hanaboso\PipesPhpSdk\Application\Base\ApplicationAbstract;
 use Hanaboso\PipesPhpSdk\Application\Base\ApplicationInterface;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Authorization\Provider\OAuth2Provider;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 
@@ -44,17 +43,6 @@ final class ShoptetGetApiAccessTokenConnectorTest extends DatabaseTestCaseAbstra
     public function testGetId(): void
     {
         self::assertEquals('shoptet-get-access-token', $this->connector->getId());
-    }
-
-    /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetGetApiAccessTokenConnector::processEvent
-     *
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        $this->connector->processEvent(new ProcessDto());
     }
 
     /**
@@ -93,7 +81,7 @@ final class ShoptetGetApiAccessTokenConnectorTest extends DatabaseTestCaseAbstra
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.shoptet-get-api-access-token');
+        $this->connector = self::getContainer()->get('hbpf.connector.shoptet-get-api-access-token');
     }
 
     /**

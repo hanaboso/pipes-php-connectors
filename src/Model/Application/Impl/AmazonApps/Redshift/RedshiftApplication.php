@@ -31,7 +31,7 @@ final class RedshiftApplication extends AwsApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'redshift';
     }
@@ -39,7 +39,7 @@ final class RedshiftApplication extends AwsApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Amazon Redshift';
     }

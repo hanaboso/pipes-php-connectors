@@ -10,6 +10,7 @@ use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetCrea
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PhpCheckUtils\PhpUnit\Traits\PrivateTrait;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use Hanaboso\Utils\String\Json;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -82,7 +83,7 @@ final class ShoptetCreateOrderConnectorTest extends DatabaseTestCaseAbstract
             self::SENDER,
             $this->prepareSender(
                 $this->prepareSenderResponse(
-                    (string) file_get_contents(__DIR__ . '/data/ShoptetImportResponse.json'),
+                    File::getContent(__DIR__ . '/data/ShoptetImportResponse.json'),
                     'POST https://api.myshoptet.com/api/orders',
                 ),
             ),
@@ -267,29 +268,13 @@ final class ShoptetCreateOrderConnectorTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetCreateOrderConnector::processEvent
-     *
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        self::assertException(
-            ConnectorException::class,
-            ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT,
-            sprintf('Method %s::processEvent is not supported!', ShoptetCreateOrderConnector::class),
-        );
-
-        $this->connector->processEvent($this->prepareProcessDto());
-    }
-
-    /**
      * @throws Exception
      */
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.shoptet-create-order');
+        $this->connector = self::getContainer()->get('hbpf.connector.shoptet-create-order');
     }
 
 }

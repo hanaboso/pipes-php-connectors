@@ -75,7 +75,7 @@ final class ShoptetApplication extends OAuth2ApplicationAbstract implements Webh
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return self::SHOPTET_KEY;
     }
@@ -83,7 +83,7 @@ final class ShoptetApplication extends OAuth2ApplicationAbstract implements Webh
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Shoptet';
     }

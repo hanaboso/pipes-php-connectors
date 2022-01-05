@@ -34,11 +34,11 @@ final class RedshiftApplicationTest extends DatabaseTestCaseAbstract
     private RedshiftApplication $application;
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\Redshift\RedshiftApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\Redshift\RedshiftApplication::getName
      */
     public function testGetKey(): void
     {
-        self::assertEquals('redshift', $this->application->getKey());
+        self::assertEquals('redshift', $this->application->getName());
     }
 
     /**
@@ -50,11 +50,11 @@ final class RedshiftApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\Redshift\RedshiftApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\AmazonApps\Redshift\RedshiftApplication::getPublicName
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
-        self::assertEquals('Amazon Redshift', $this->application->getName());
+        self::assertEquals('Amazon Redshift', $this->application->getPublicName());
     }
 
     /**
@@ -297,7 +297,7 @@ final class RedshiftApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.redshift');
+        $this->application = self::getContainer()->get('hbpf.application.redshift');
     }
 
     /**

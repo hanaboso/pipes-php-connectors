@@ -42,15 +42,15 @@ final class AirtableApplicationTest extends DatabaseTestCaseAbstract
      */
     public function testGetKey(): void
     {
-        self::assertEquals('airtable', $this->app->getKey());
+        self::assertEquals('airtable', $this->app->getName());
     }
 
     /**
      * @throws Exception
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
-        self::assertEquals('Airtable', $this->app->getName());
+        self::assertEquals('Airtable', $this->app->getPublicName());
     }
 
     /**
@@ -78,7 +78,7 @@ final class AirtableApplicationTest extends DatabaseTestCaseAbstract
     public function testIsAuthorized(): void
     {
         $applicationInstall = DataProvider::getBasicAppInstall(
-            $this->app->getKey(),
+            $this->app->getName(),
         );
         $applicationInstall->setSettings(
             [
@@ -102,7 +102,7 @@ final class AirtableApplicationTest extends DatabaseTestCaseAbstract
     public function testNoToken(): void
     {
         $applicationInstall = DataProvider::getBasicAppInstall(
-            $this->app->getKey(),
+            $this->app->getName(),
         );
         $applicationInstall->setSettings(
             [
@@ -124,7 +124,7 @@ final class AirtableApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->app = self::$container->get('hbpf.application.airtable');
+        $this->app = self::getContainer()->get('hbpf.application.airtable');
     }
 
 }

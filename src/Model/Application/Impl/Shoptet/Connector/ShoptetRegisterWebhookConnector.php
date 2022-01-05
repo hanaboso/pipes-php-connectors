@@ -10,7 +10,6 @@ use Hanaboso\CommonsBundle\Transport\Curl\CurlManager;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PipesPhpSdk\Application\Exception\ApplicationInstallException;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessEventNotSupportedTrait;
 use Hanaboso\Utils\Exception\DateTimeException;
 use Hanaboso\Utils\String\Json;
 use JsonException;
@@ -22,8 +21,6 @@ use JsonException;
  */
 final class ShoptetRegisterWebhookConnector extends ShoptetConnectorAbstract
 {
-
-    use ProcessEventNotSupportedTrait;
 
     private const WEBHOOK_URL = 'api/webhooks';
 

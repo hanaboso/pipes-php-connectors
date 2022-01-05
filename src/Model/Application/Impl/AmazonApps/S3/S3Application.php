@@ -22,7 +22,7 @@ final class S3Application extends AwsApplicationAbstract
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 's3';
     }
@@ -30,7 +30,7 @@ final class S3Application extends AwsApplicationAbstract
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Amazon Simple Storage Service';
     }

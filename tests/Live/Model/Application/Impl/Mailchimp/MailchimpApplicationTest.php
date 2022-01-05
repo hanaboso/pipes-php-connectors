@@ -22,10 +22,10 @@ final class MailchimpApplicationTest extends DatabaseTestCaseAbstract
      */
     public function testAutorize(): void
     {
-        $app = self::$container->get('hbpf.application.mailchimp');
+        $app = self::getContainer()->get('hbpf.application.mailchimp');
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             'token123',
             '6748****7235',

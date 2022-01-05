@@ -5,31 +5,21 @@ namespace Hanaboso\HbPFConnectors\Model\Application\Impl\OAuth2\Connector;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\MongoDBException;
 use Doctrine\Persistence\ObjectRepository;
-use GuzzleHttp\Promise\PromiseInterface;
 use Hanaboso\CommonsBundle\Process\ProcessDto;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Application\Repository\ApplicationInstallRepository;
 use Hanaboso\PipesPhpSdk\Connector\ConnectorAbstract;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessActionNotSupportedTrait;
-use Hanaboso\PipesPhpSdk\Connector\Traits\ProcessEventNotSupportedTrait;
-use Hanaboso\PipesPhpSdk\RabbitMq\Impl\Batch\BatchInterface;
-use Hanaboso\PipesPhpSdk\RabbitMq\Impl\Batch\BatchTrait;
-use Hanaboso\PipesPhpSdk\RabbitMq\Impl\Batch\SuccessMessage;
 use Hanaboso\Utils\Date\DateTimeUtils;
 use Hanaboso\Utils\Exception\DateTimeException;
-use Hanaboso\Utils\System\PipesHeaders;
+use Hanaboso\Utils\String\Json;
 
 /**
  * Class GetApplicationForRefreshBatchConnector
  *
  * @package Hanaboso\HbPFConnectors\Model\Application\Impl\OAuth2\Connector
  */
-final class GetApplicationForRefreshBatchConnector extends ConnectorAbstract implements BatchInterface
+final class GetApplicationForRefreshBatchConnector extends ConnectorAbstract
 {
-
-    use ProcessActionNotSupportedTrait;
-    use ProcessEventNotSupportedTrait;
-    use BatchTrait;
 
     public const APPLICATION_ID = 'get_application_for_refresh';
 
@@ -58,16 +48,14 @@ final class GetApplicationForRefreshBatchConnector extends ConnectorAbstract imp
 
     /**
      * @param ProcessDto $dto
-     * @param callable   $callbackItem
      *
-     * @return PromiseInterface
-     * @throws MongoDBException
+     * @return ProcessDto
      * @throws DateTimeException
+     * @throws MongoDBException
      */
-    public function processBatch(ProcessDto $dto, callable $callbackItem): PromiseInterface
+    public function processAction(ProcessDto $dto): ProcessDto
     {
-        $dto;
-        $i    = 1;
+        // TODO batch connector v2
         $time = DateTimeUtils::getUtcDateTime('1 hour');
 
         /** @var ApplicationInstall[] $applications */
@@ -79,13 +67,13 @@ final class GetApplicationForRefreshBatchConnector extends ConnectorAbstract imp
             ->getQuery()
             ->execute();
 
+        $ids = [];
         foreach ($applications as $app) {
-            $message = new SuccessMessage($i);
-            $callbackItem($message->addHeader(PipesHeaders::createKey(self::APPLICATION_ID), $app->getId()));
-            $i++;
+            $ids[] = [self::APPLICATION_ID => $app->getId()];
         }
+        $dto->setData(Json::encode($ids));
 
-        return $this->createPromise();
+        return $dto;
     }
 
 }

@@ -39,7 +39,7 @@ final class FlexiBeeApplicationTest extends ControllerTestCaseAbstract
      */
     private function getApp(): FlexiBeeApplication
     {
-        return self::$container->get('hbpf.application.flexibee');
+        return self::getContainer()->get('hbpf.application.flexibee');
     }
 
     /**
@@ -48,7 +48,7 @@ final class FlexiBeeApplicationTest extends ControllerTestCaseAbstract
      */
     private function getAppInstall(): ApplicationInstall
     {
-        $appInstall = DataProvider::getBasicAppInstall($this->getApp()->getKey());
+        $appInstall = DataProvider::getBasicAppInstall($this->getApp()->getName());
 
         $appInstall->setSettings(
             [

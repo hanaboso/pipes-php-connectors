@@ -24,23 +24,23 @@ final class GoogleDriveApplicationTest extends DatabaseTestCaseAbstract
     private GoogleDriveApplication $app;
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\GoogleDrive\GoogleDriveApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\GoogleDrive\GoogleDriveApplication::getName
      *
      * @throws Exception
      */
     public function testGetKey(): void
     {
-        self::assertEquals('google-drive', $this->app->getKey());
+        self::assertEquals('google-drive', $this->app->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\GoogleDrive\GoogleDriveApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\GoogleDrive\GoogleDriveApplication::getPublicName
      *
      * @throws Exception
      */
-    public function testGetName(): void
+    public function testGetPublicName(): void
     {
-        self::assertEquals('GoogleDrive Application', $this->app->getName());
+        self::assertEquals('GoogleDrive Application', $this->app->getPublicName());
     }
 
     /**
@@ -81,7 +81,7 @@ final class GoogleDriveApplicationTest extends DatabaseTestCaseAbstract
     public function testGetRequestDto(): void
     {
         $dto = $this->app->getRequestDto(
-            DataProvider::getOauth2AppInstall($this->app->getKey()),
+            DataProvider::getOauth2AppInstall($this->app->getName()),
             CurlManager::METHOD_POST,
             NULL,
             Json::encode(['foo' => 'bar']),
@@ -110,7 +110,7 @@ final class GoogleDriveApplicationTest extends DatabaseTestCaseAbstract
      */
     public function testAuthorize(): void
     {
-        $this->app->authorize(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->app->authorize(DataProvider::getOauth2AppInstall($this->app->getName()));
 
         self::assertFake();
     }

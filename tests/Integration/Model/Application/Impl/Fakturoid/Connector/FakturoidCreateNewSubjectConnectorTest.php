@@ -7,6 +7,7 @@ use Hanaboso\CommonsBundle\Transport\Curl\CurlManager;
 use Hanaboso\CommonsBundle\Transport\Curl\Dto\ResponseDto;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Fakturoid\Connector\FakturoidCreateNewSubjectConnector;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DataProvider;
 
 /**
@@ -39,10 +40,10 @@ final class FakturoidCreateNewSubjectConnectorTest extends FakturoidAbstractConn
     {
         $this->setApplicationAndMock('fakturacnitest');
 
-        $app          = self::$container->get('hbpf.application.fakturoid');
-        $dataFromFile = (string) file_get_contents(__DIR__ . '/Data/requestCreateNewSubject.json');
+        $app          = self::getContainer()->get('hbpf.application.fakturoid');
+        $dataFromFile = File::getContent(__DIR__ . '/Data/requestCreateNewSubject.json');
         $dto          = DataProvider::getProcessDto(
-            $app->getKey(),
+            $app->getName(),
             'user',
             $dataFromFile,
         );
@@ -83,9 +84,9 @@ final class FakturoidCreateNewSubjectConnectorTest extends FakturoidAbstractConn
      */
     public function setApplication(): FakturoidCreateNewSubjectConnector
     {
-        $app                = self::$container->get('hbpf.application.fakturoid');
+        $app                = self::getContainer()->get('hbpf.application.fakturoid');
         $fakturoidConnector = new FakturoidCreateNewSubjectConnector(
-            self::$container->get('hbpf.transport.curl_manager'),
+            self::getContainer()->get('hbpf.transport.curl_manager'),
             $this->dm,
         );
 

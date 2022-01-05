@@ -39,7 +39,7 @@ final class ShipstationApplication extends BasicApplicationAbstract implements W
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'shipstation';
     }
@@ -47,7 +47,7 @@ final class ShipstationApplication extends BasicApplicationAbstract implements W
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Shipstation';
     }

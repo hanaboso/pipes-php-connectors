@@ -23,9 +23,9 @@ final class IDokladApplicationTest extends ControllerTestCaseAbstract
      */
     public function testAuthorize(): void
     {
-        $app                = self::$container->get('hbpf.application.i-doklad');
+        $app                = self::getContainer()->get('hbpf.application.i-doklad');
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             'token123',
             'ae89f69a-44f4-4163-ac98-************',
@@ -52,10 +52,10 @@ final class IDokladApplicationTest extends ControllerTestCaseAbstract
      */
     public function testCreateAccessToken(): void
     {
-        $app = self::$container->get('hbpf.application.i-doklad');
+        $app = self::getContainer()->get('hbpf.application.i-doklad');
 
         $applicationInstall = DataProvider::getOauth2AppInstall(
-            $app->getKey(),
+            $app->getName(),
             'user',
             '',
             'ae89f69a-44f4-4163-ac98-************',

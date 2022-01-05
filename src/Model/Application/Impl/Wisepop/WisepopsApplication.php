@@ -40,7 +40,7 @@ final class WisepopsApplication extends BasicApplicationAbstract implements Webh
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getName(): string
     {
         return 'wisepops';
     }
@@ -48,7 +48,7 @@ final class WisepopsApplication extends BasicApplicationAbstract implements Webh
     /**
      * @return string
      */
-    public function getName(): string
+    public function getPublicName(): string
     {
         return 'Wisepops';
     }

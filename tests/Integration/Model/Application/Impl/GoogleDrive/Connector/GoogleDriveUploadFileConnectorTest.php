@@ -9,7 +9,6 @@ use Hanaboso\CommonsBundle\Transport\Curl\CurlManager;
 use Hanaboso\CommonsBundle\Transport\Curl\Dto\ResponseDto;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\GoogleDrive\Connector\GoogleDriveUploadFileConnector;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\GoogleDrive\GoogleDriveApplication;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use Hanaboso\Utils\String\Json;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -42,29 +41,17 @@ final class GoogleDriveUploadFileConnectorTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\GoogleDrive\Connector\GoogleDriveUploadFileConnector::processEvent
-     *
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        self::expectExceptionCode(ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT);
-        $this->createConnector(DataProvider::createResponseDto())->processEvent(DataProvider::getProcessDto());
-    }
-
-    /**
      * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\GoogleDrive\Connector\GoogleDriveUploadFileConnector::processAction
      *
      * @throws Exception
      */
     public function testProcessAction(): void
     {
-        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getName()));
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             Json::encode(['name' => 'John Doe', 'email' => 'noreply@johndoe.com', 'phone' => '555-555']),
         );
@@ -89,11 +76,11 @@ final class GoogleDriveUploadFileConnectorTest extends DatabaseTestCaseAbstract
      */
     public function testProcessActionRequestException(): void
     {
-        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getName()));
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             Json::encode(['name' => 'John Doe',
                           'email' => 'noreply@johndoe.com',
@@ -118,7 +105,7 @@ final class GoogleDriveUploadFileConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->app = new GoogleDriveApplication(self::$container->get('hbpf.providers.oauth2_provider'));
+        $this->app = new GoogleDriveApplication(self::getContainer()->get('hbpf.providers.oauth2_provider'));
     }
 
     /**

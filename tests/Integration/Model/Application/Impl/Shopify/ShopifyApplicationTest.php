@@ -10,6 +10,7 @@ use Hanaboso\CommonsBundle\Transport\Curl\Dto\ResponseDto;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
 use Hanaboso\PipesPhpSdk\Authorization\Base\Basic\BasicApplicationInterface;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 
@@ -39,19 +40,19 @@ final class ShopifyApplicationTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication::getKey
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication::getName
      */
     public function testGetKey(): void
     {
-        self::assertEquals('shopify', $this->application->getKey());
+        self::assertEquals('shopify', $this->application->getName());
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication::getName
+     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shopify\ShopifyApplication::getPublicName
      */
-    public function testName(): void
+    public function testPublicName(): void
     {
-        self::assertEquals('Shopify', $this->application->getName());
+        self::assertEquals('Shopify', $this->application->getPublicName());
     }
 
     /**
@@ -78,7 +79,7 @@ final class ShopifyApplicationTest extends DatabaseTestCaseAbstract
             $applicationInstall,
             CurlManager::METHOD_POST,
             '/customers.json',
-            (string) file_get_contents(__DIR__ . '/data/createCustomer.json'),
+            File::getContent(__DIR__ . '/data/createCustomer.json'),
         );
 
         self::assertEquals('https://hana1.myshopify.com/admin/api/2020-01/customers.json', $request->getUri());
@@ -90,7 +91,7 @@ final class ShopifyApplicationTest extends DatabaseTestCaseAbstract
             ],
             $request->getHeaders(),
         );
-        self::assertEquals(file_get_contents(__DIR__ . '/data/createCustomer.json'), $request->getBody());
+        self::assertEquals(File::getContent(__DIR__ . '/data/createCustomer.json'), $request->getBody());
     }
 
     /**
@@ -152,7 +153,7 @@ final class ShopifyApplicationTest extends DatabaseTestCaseAbstract
     public function testProcessWebhookSubscribeResponse(): void
     {
         $response = $this->application->processWebhookSubscribeResponse(
-            new ResponseDto(200, '', (string) file_get_contents(__DIR__ . '/data/createWebhookResponse.json'), []),
+            new ResponseDto(200, '', File::getContent(__DIR__ . '/data/createWebhookResponse.json'), []),
             new ApplicationInstall(),
         );
         self::assertEquals('1047897672', $response);
@@ -176,7 +177,7 @@ final class ShopifyApplicationTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->application = self::$container->get('hbpf.application.shopify');
+        $this->application = self::getContainer()->get('hbpf.application.shopify');
     }
 
     /**
@@ -185,7 +186,7 @@ final class ShopifyApplicationTest extends DatabaseTestCaseAbstract
      */
     private function createApplication(): ApplicationInstall
     {
-        $applicationInstall = DataProvider::getBasicAppInstall($this->application->getKey());
+        $applicationInstall = DataProvider::getBasicAppInstall($this->application->getName());
 
         $applicationInstall->setSettings(
             [

@@ -10,6 +10,7 @@ use Hanaboso\CommonsBundle\Transport\Curl\Dto\ResponseDto;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\Connector\IDokladCreateNewContactConnector;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\IDoklad\IDokladApplication;
 use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 
@@ -42,27 +43,17 @@ final class IDokladCreateNewContactConnectorTest extends DatabaseTestCaseAbstrac
 
     /**
      * @throws ConnectorException
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        self::expectExceptionCode(ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT);
-        $this->createConnector(DataProvider::createResponseDto())->processEvent(DataProvider::getProcessDto());
-    }
-
-    /**
-     * @throws ConnectorException
      * @throws Exception
      */
     public function testProcessAction(): void
     {
-        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getName()));
         $this->dm->clear();
 
-        $dataFromFile = (string) file_get_contents(__DIR__ . '/newContact.json');
+        $dataFromFile = File::getContent(__DIR__ . '/newContact.json');
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             $dataFromFile,
         );
@@ -81,13 +72,13 @@ final class IDokladCreateNewContactConnectorTest extends DatabaseTestCaseAbstrac
      */
     public function testProcessActionRequestException(): void
     {
-        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getName()));
         $this->dm->clear();
 
-        $dataFromFile = (string) file_get_contents(__DIR__ . '/newContact.json');
+        $dataFromFile = File::getContent(__DIR__ . '/newContact.json');
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             $dataFromFile,
         );
@@ -105,11 +96,11 @@ final class IDokladCreateNewContactConnectorTest extends DatabaseTestCaseAbstrac
      */
     public function testProcessActionRequestLogicException(): void
     {
-        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getKey()));
+        $this->pfd(DataProvider::getOauth2AppInstall($this->app->getName()));
         $this->dm->clear();
 
         $dto = DataProvider::getProcessDto(
-            $this->app->getKey(),
+            $this->app->getName(),
             'user',
             '{
             "BankId": 1
@@ -139,7 +130,7 @@ final class IDokladCreateNewContactConnectorTest extends DatabaseTestCaseAbstrac
     {
         parent::setUp();
 
-        $this->app = new IDokladApplication(self::$container->get('hbpf.providers.oauth2_provider'));
+        $this->app = new IDokladApplication(self::getContainer()->get('hbpf.providers.oauth2_provider'));
     }
 
     /**

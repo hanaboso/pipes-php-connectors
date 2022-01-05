@@ -91,9 +91,9 @@ final class FakturoidGetAccountDetailConnectorTest extends FakturoidAbstractConn
      */
     public function setApplication(): FakturoidGetAccountDetailConnector
     {
-        $app                = self::$container->get('hbpf.application.fakturoid');
+        $app                = self::getContainer()->get('hbpf.application.fakturoid');
         $fakturoidConnector = new FakturoidGetAccountDetailConnector(
-            self::$container->get('hbpf.transport.curl_manager'),
+            self::getContainer()->get('hbpf.transport.curl_manager'),
             $this->dm,
         );
 

@@ -11,8 +11,8 @@ use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetGetE
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PhpCheckUtils\PhpUnit\Traits\PrivateTrait;
 use Hanaboso\PipesPhpSdk\Application\Document\ApplicationInstall;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use Hanaboso\Utils\Date\DateTimeUtils;
+use Hanaboso\Utils\File\File;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
 
@@ -45,24 +45,13 @@ final class ShoptetGetEshopInfoTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetGetEshopInfo::processEvent()
-     *
-     * @throws Exception
-     */
-    public function testProcessEvent(): void
-    {
-        self::expectException(ConnectorException::class);
-        $this->connector->processEvent(new ProcessDto());
-    }
-
-    /**
      * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetGetEshopInfo::processAction()
      *
      * @throws Exception
      */
     public function testProcessAction(): void
     {
-        $jsonContent = (string) file_get_contents(__DIR__ . '/data/ShoptetGetEshopInfo.json');
+        $jsonContent = File::getContent(__DIR__ . '/data/ShoptetGetEshopInfo.json');
         $this->mockSender($jsonContent);
         $this->insertApplicationInstall();
 
@@ -79,7 +68,7 @@ final class ShoptetGetEshopInfoTest extends DatabaseTestCaseAbstract
      */
     public function testProcessActionArray(): void
     {
-        $jsonContent = (string) file_get_contents(__DIR__ . '/data/ShoptetGetEshopInfo.json');
+        $jsonContent = File::getContent(__DIR__ . '/data/ShoptetGetEshopInfo.json');
         $this->mockSender($jsonContent);
         $applicationInstall = $this->insertApplicationInstall();
         $data               = $this->connector->processActionArray($applicationInstall, new ProcessDto());
@@ -117,7 +106,7 @@ final class ShoptetGetEshopInfoTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.shoptet-get-eshop-info');
+        $this->connector = self::getContainer()->get('hbpf.connector.shoptet-get-eshop-info');
     }
 
     /**

@@ -41,7 +41,7 @@ final class RedshiftExecuteQueryConnectorTest extends DatabaseTestCaseAbstract
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.redshift-execute-query');
+        $this->connector = self::getContainer()->get('hbpf.connector.redshift-execute-query');
     }
 
     /**

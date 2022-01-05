@@ -23,7 +23,7 @@ final class HubSpotCreateContactMapper extends CustomNodeAbstract
      * @throws PipesFrameworkException
      * @throws JsonException
      */
-    public function process(ProcessDto $dto): ProcessDto
+    public function processAction(ProcessDto $dto): ProcessDto
     {
         $body = Json::decode($dto->getData())['orders'][0] ?? NULL;
 

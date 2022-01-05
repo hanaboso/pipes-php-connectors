@@ -8,7 +8,6 @@ use Hanaboso\CommonsBundle\Transport\Curl\CurlException;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetRegisterWebhookConnector;
 use Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\ShoptetApplication;
 use Hanaboso\PhpCheckUtils\PhpUnit\Traits\PrivateTrait;
-use Hanaboso\PipesPhpSdk\Connector\Exception\ConnectorException;
 use Hanaboso\Utils\String\Json;
 use HbPFConnectorsTests\DatabaseTestCaseAbstract;
 use HbPFConnectorsTests\DataProvider;
@@ -126,29 +125,13 @@ final class ShoptetRegisterWebhookConnectorTest extends DatabaseTestCaseAbstract
     }
 
     /**
-     * @covers \Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetRegisterWebhookConnector::processEvent
-     *
-     * @throws Exception
-     */
-    public function testProcessEventMissingEventInstance(): void
-    {
-        self::assertException(
-            ConnectorException::class,
-            ConnectorException::CONNECTOR_DOES_NOT_HAVE_PROCESS_EVENT,
-            sprintf('Method %s::processEvent is not supported!', ShoptetRegisterWebhookConnector::class),
-        );
-
-        $this->connector->processEvent($this->prepareProcessDto());
-    }
-
-    /**
      * @throws Exception
      */
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->connector = self::$container->get('hbpf.connector.shoptet-register-webhook');
+        $this->connector = self::getContainer()->get('hbpf.connector.shoptet-register-webhook');
     }
 
 }
