@@ -1,8 +1,8 @@
 {
     "name": "hanaboso/pipes-connectors",
     "description": "Connectors for PipesFramework",
-    "version": "1.6.1",
     "license": "Apache-2.0",
+    "version": "1.6.1",
     "require": {
         "php": "^8.0",
         "ext-ctype": "*",
@@ -22,16 +22,6 @@
     "suggest": {
         "aws/aws-sdk-php-symfony": "Install me, if you need to use Model\\Application\\Impl\\AmazonApps."
     },
-    "autoload": {
-        "psr-4": {
-            "Hanaboso\\HbPFConnectors\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "HbPFConnectorsTests\\": "tests"
-        }
-    },
     "repositories": [
         {
             "type": "path",
@@ -47,5 +37,15 @@
                 "symlink": true
             }
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hanaboso\\HbPFConnectors\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HbPFConnectorsTests\\": "tests"
+        }
+    }
 }
