@@ -8,8 +8,6 @@ framework:
     http_method_override: true
     test: false
     serializer:
-    session:
-        storage_id: session.storage.mock_file
     router:
         strict_requirements: ~
 
