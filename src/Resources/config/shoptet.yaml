@@ -8,7 +8,7 @@ services:
             - '@hbpf.providers.oauth2_provider'
             - '@doctrine_mongodb.odm.default_document_manager'
             - '@hbpf.transport.curl_manager'
-            - '%starting_point_host%'
+            - '%startingPointHost%'
 
     hbpf.connector.shoptet-get-api-access-token:
         class: Hanaboso\HbPFConnectors\Model\Application\Impl\Shoptet\Connector\ShoptetGetApiAccessTokenConnector
