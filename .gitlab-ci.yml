@@ -15,6 +15,7 @@ pipes-connectors:git-mirror:
 
   variables:
     MIRROR_REPOSITORY_NAME: pipes-connectors
+    MIRROR_TRIGGER_REPO_VAR: hanaboso-pipes-php-connectors
 
   extends:
     - .base-git-mirror
